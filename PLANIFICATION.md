@@ -1,5 +1,3 @@
-## Vos choix technologiques
-
 ### Gestion des données
 
 Fichier JSON local : Simple, fiable, fonctionne directement sur GitHub Pages.
