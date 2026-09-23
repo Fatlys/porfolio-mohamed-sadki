@@ -1,9 +1,17 @@
-# porfolio-mohamed-sadki
+# Portfolio Mohamed Sadki
 
-Mohamed Ali Sadki
+Portfolio personnel en HTML/CSS/JS.
 
-TIM
+## Structure
 
-alisadki.212.212@gmail.com
+- `index.html` : page d'accueil
+- `css/` : styles globaux et composants
+- `js/` : scripts JavaScript
+- `assets/` : images et icônes
+- `data/` : fichiers de données JSON
+- `documentation/` : planification et journal
+- `exports-composants/` : captures des composants
 
-https://www.figma.com/design/gd3xL6VX3kXwTgJF5Xr0jb/45?node-id=2130-457&t=guMC4luoSDHC0uMF-0
+## Lancement
+
+Ouvrir `index.html` dans un navigateur, ou utiliser un serveur local simple.

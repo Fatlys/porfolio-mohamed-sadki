@@ -1,0 +1,14 @@
+.nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav__link {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.nav__link:hover {
+  color: var(--color-accent);
+}
