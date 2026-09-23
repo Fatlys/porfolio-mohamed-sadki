@@ -4,6 +4,10 @@ Fichier JSON local : Simple, fiable, fonctionne directement sur GitHub Pages.
 
 ### Animations
 
+Dans la section contact je vais animer une manette qui bouge et qui suit la souris.
+
+La background va être animer en continue (Vagues qui bouge comme dans un menu de PlayStation) 
+
 Pour les animations, je vais principalement utiliser  Anime.js et CSS.
 
 
