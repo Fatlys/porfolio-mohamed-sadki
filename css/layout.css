@@ -1,0 +1,24 @@
+/* Mise en page générale et pages */
+main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: auto; }
+
+.section { padding-block: var(--esp-5); }
+
+/* ----- Pages ----- */
+.page { display: none; }
+.page.active { display: block; animation: apparition 0.45s ease both; }
+@keyframes apparition { from { opacity: 0; transform: translateY(12px); } }
+
+/* Accueil et Contact : une vue, sans défilement */
+html.sans-defilement, html.sans-defilement body { overflow: hidden; }
+.page-fixe { height: calc(100dvh - var(--hauteur-nav)); }
+.page-fixe .section { height: 100%; }
+
+/* Page défilante : Projets, Demo reel et Compétences espacés.
+   Hauteur minimale provisoire tant que les sections sont vides (étapes suivantes). */
+#page-contenu .section { padding-block: 7rem; min-height: 100vh; }
+#page-contenu .section + .section { border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+/* Écran trop petit : on autorise le défilement à l'intérieur de la page */
+@media (max-width: 860px), (max-height: 560px) {
+  .page-fixe { overflow-y: auto; }
+}

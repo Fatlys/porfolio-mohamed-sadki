@@ -1,0 +1,55 @@
+/* Base : reset, fond, éléments globaux */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--hauteur-nav);
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--police);
+  font-size: var(--taille-m);
+  line-height: 1.55;
+  color: var(--texte);
+  background: radial-gradient(ellipse 120% 70% at 50% -10%, var(--fond-haut), var(--fond) 65%) fixed, var(--fond);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+h1, h2, h3 { font-weight: 300; line-height: 1.15; }
+
+:focus-visible { outline: 2px solid var(--bleu); outline-offset: 3px; }
+
+/* Icônes SVG injectées par JS */
+.icone { display: inline-flex; width: 1.5em; height: 1.5em; flex: none; }
+.icone svg { width: 100%; height: 100%; }
+
+/* Vagues lumineuses en arrière-plan (dessinées par js/composants/vagues.js) */
+.vagues {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.vagues canvas { display: block; width: 100%; height: 100%; transition: opacity 0.35s ease; }
+.vagues canvas.vagues-coupure { opacity: 0; transition: opacity 0.15s ease; } /* coupure entre deux pages */
+
+.visuellement-cache {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

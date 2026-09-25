@@ -1,0 +1,62 @@
+/* Barre de navigation collante (sticky) */
+.barre-nav {
+  position: sticky; top: 0; z-index: 20;
+  height: var(--hauteur-nav);
+  display: flex; align-items: center; gap: var(--esp-4);
+  padding-inline: clamp(1rem, 4vw, 4rem);
+  background: rgba(2, 4, 11, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Les onglets restent groupés à gauche, l'heure à droite */
+.barre-nav nav { flex: 1; min-width: 0; }
+.nav-liste {
+  list-style: none; padding: 0;
+  display: flex; justify-content: flex-start; gap: 0.75rem;
+  overflow-x: auto; scrollbar-width: none;
+}
+.nav-liste::-webkit-scrollbar { display: none; }
+
+.nav-lien {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+  min-width: 5.5rem; padding: 0.6rem 0.8rem;
+  color: var(--texte-doux); font-size: 0.95rem;
+  transition: color var(--transition);
+}
+.nav-lien .icone { width: 2.4rem; height: 2.4rem; }
+.nav-lien::after {
+  content: ""; position: absolute; left: 18%; right: 18%; bottom: 0;
+  height: 2px; border-radius: 2px; background: var(--bleu);
+  box-shadow: 0 0 10px var(--bleu); transform: scaleX(0);
+  transition: transform var(--transition);
+}
+.nav-lien:hover { color: var(--texte); }
+.nav-lien[aria-current="true"] { color: #fff; }
+.nav-lien[aria-current="true"] .icone { filter: drop-shadow(0 0 6px var(--bleu)); }
+.nav-lien[aria-current="true"]::after { transform: scaleX(1); }
+
+/* Afficheur de l'heure */
+.statut {
+  display: flex; align-items: center; gap: 1rem; flex: none;
+  padding: 0.65rem 1.3rem;
+  border: 1px solid var(--bordure); border-radius: 10px;
+  font-size: 1.1rem; color: var(--texte);
+  font-variant-numeric: tabular-nums;
+}
+.statut .icone { width: 1.5rem; height: 1.5rem; color: var(--texte-doux); }
+
+@media (max-width: 900px) {
+  :root { --hauteur-nav: 80px; }
+  .statut { display: none; }
+  .nav-lien { min-width: 4rem; padding-inline: 0.4rem; font-size: 0.75rem; }
+  .nav-lien .icone { width: 1.9rem; height: 1.9rem; }
+}
+
+@media (max-width: 480px) {
+  .nav-liste { justify-content: space-around; }
+  .nav-lien { min-width: 0; padding-inline: 0.2rem; font-size: 0.68rem; }
+  .nav-lien .icone { width: 1.7rem; height: 1.7rem; }
+}

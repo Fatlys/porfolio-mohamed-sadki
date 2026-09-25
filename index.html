@@ -1,11 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mohamed Ali Sadki — Portfolio</title>
+  <meta name="description" content="Portfolio de Mohamed Ali Sadki : montage vidéo, design graphique, jeux vidéo et 3D.">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/composants/navigation.css">
 </head>
 <body>
-    
+
+  <!-- Vagues lumineuses (décor) -->
+  <div class="vagues" aria-hidden="true"><canvas id="vagues-canvas"></canvas></div>
+
+  <!-- Menu collant -->
+  <header class="barre-nav">
+    <nav aria-label="Navigation principale">
+      <ul class="nav-liste">
+        <li><a class="nav-lien" href="#accueil" data-section="accueil" aria-current="true"><span data-icone="accueil"></span>Accueil</a></li>
+        <li><a class="nav-lien" href="#projets" data-section="projets"><span data-icone="projets"></span>Projets</a></li>
+        <li><a class="nav-lien" href="#demo-reel" data-section="demo-reel"><span data-icone="lecture"></span>Demo reel</a></li>
+        <li><a class="nav-lien" href="#competences" data-section="competences"><span data-icone="competences"></span>Compétences</a></li>
+        <li><a class="nav-lien" href="#contact" data-section="contact"><span data-icone="contact"></span>Contact</a></li>
+      </ul>
+    </nav>
+    <div class="statut" aria-hidden="true">
+      <span data-icone="disque"></span>
+      <span id="horloge"></span>
+      <span data-icone="batterie"></span>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE 1 : Accueil (une seule vue, pas de défilement) — contenu à l'étape 2 -->
+    <div class="page page-fixe" id="page-accueil">
+      <section id="accueil" class="section" aria-labelledby="titre-accueil">
+        <h1 class="visuellement-cache" id="titre-accueil">Accueil</h1>
+      </section>
+    </div>
+
+    <!-- PAGE 2 : Projets, Demo reel, Compétences (défilement) -->
+    <div class="page" id="page-contenu">
+      <section id="projets" class="section" aria-labelledby="titre-projets">
+        <h2 class="visuellement-cache" id="titre-projets">Projets</h2>
+      </section>
+      <section id="demo-reel" class="section" aria-labelledby="titre-demo-reel">
+        <h2 class="visuellement-cache" id="titre-demo-reel">Demo reel</h2>
+      </section>
+      <section id="competences" class="section" aria-labelledby="titre-competences">
+        <h2 class="visuellement-cache" id="titre-competences">Compétences</h2>
+      </section>
+    </div>
+
+    <!-- PAGE 3 : Contact (une seule vue) -->
+    <div class="page page-fixe" id="page-contact">
+      <section id="contact" class="section" aria-labelledby="titre-contact">
+        <h2 class="visuellement-cache" id="titre-contact">Contact</h2>
+      </section>
+    </div>
+  </main>
+
+  <!-- Scripts (l'ordre compte) -->
+  <script src="js/data.js"></script>
+  <script src="js/composants/vagues.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

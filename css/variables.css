@@ -1,0 +1,35 @@
+/* Variables : couleurs, typo, espacements */
+:root {
+  /* Couleurs */
+  --fond: #02040b;
+  --fond-haut: #0a1733;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-survol: rgba(58, 141, 255, 0.08);
+  --bordure: rgba(255, 255, 255, 0.16);
+  --bleu: #3a8dff;
+  --bleu-lueur: rgba(58, 141, 255, 0.55);
+  --texte: #eef1f7;
+  --texte-doux: #8e98ad;
+
+  /* Typographie (ajoute @font-face dans base.css si tu as le fichier SCE-PS3 Rodi) */
+  --police: "SCE-PS3 Rodi", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --taille-xs: 0.75rem;
+  --taille-s: 0.875rem;
+  --taille-m: 1rem;
+  --taille-l: 1.375rem;
+  --taille-xl: clamp(2.2rem, 5vw, 3.6rem);
+
+  /* Espacements */
+  --esp-1: 0.5rem;
+  --esp-2: 1rem;
+  --esp-3: 1.5rem;
+  --esp-4: 2.5rem;
+  --esp-5: 4rem;
+
+  /* Divers */
+  --rayon: 10px;
+  --hauteur-nav: 96px;
+  --largeur-max: 1180px;
+  --lueur: 0 0 0 1px var(--bleu), 0 0 18px var(--bleu-lueur);
+  --transition: 0.2s ease;
+}
