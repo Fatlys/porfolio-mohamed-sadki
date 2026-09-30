@@ -1,10 +1,80 @@
 [
   {
-    "titre": "Projet 1",
-    "description": "Description du projet."
+    "id": "hamza-pixel-war",
+    "titre": "Montage vidéo pour Hamza Kerdaloco",
+    "categorie": "video",
+    "image": "assets/images/minia 1.png",
+    "mention": "Personnel",
+    "cours": null,
+    "equipe": "Individuel",
+    "logiciels": [
+      "Premiere Pro",
+      "After Effects"
+    ],
+    "resume": "Vidéo de réaction de 20 minutes tirée d'une rediffusion Twitch de 2 heures.",
+    
+    "lien": {
+      "url": "https://www.youtube.com/watch?v=u2l_Tua-hKI&list=PLKr93hgejjAah6b__YifT2qWp8r19BuXz"
+    }
   },
+
   {
-    "titre": "Projet 2",
-    "description": "Description du projet."
+    "id": "hamza-pixel-war",
+    "titre": "Montage vidéo pour Hamza Kerdaloco",
+    "categorie": "video",
+    "image": "assets/images/minia 1.png",
+    "mention": "Personnel",
+    "cours": null,
+    "equipe": "Individuel",
+    "logiciels": [
+      "Premiere Pro",
+      "After Effects"
+    ],
+    "resume": "Vidéo de réaction de 20 minutes tirée d'une rediffusion Twitch de 2 heures.",
+    
+    "lien": {
+      "url": "https://www.youtube.com/watch?v=u2l_Tua-hKI&list=PLKr93hgejjAah6b__YifT2qWp8r19BuXz"
+    }
+  },
+
+  {
+    "id": "hamza-pixel-war",
+    "titre": "Montage vidéo pour Hamza Kerdaloco",
+    "categorie": "video",
+    "image": "assets/images/minia 1.png",
+    "mention": "Personnel",
+    "cours": null,
+    "equipe": "Individuel",
+    "logiciels": [
+      "Premiere Pro",
+      "After Effects"
+    ],
+    "resume": "Vidéo de réaction de 20 minutes tirée d'une rediffusion Twitch de 2 heures.",
+    
+    "lien": {
+      "url": "https://www.youtube.com/watch?v=u2l_Tua-hKI&list=PLKr93hgejjAah6b__YifT2qWp8r19BuXz"
+    }
+  },
+
+  {
+    "id": "hamza-pixel-war",
+    "titre": "Montage vidéo pour Hamza Kerdaloco",
+    "categorie": "video",
+    "image": "assets/images/minia 1.png",
+    "mention": "Personnel",
+    "cours": null,
+    "equipe": "Individuel",
+    "logiciels": [
+      "Premiere Pro",
+      "After Effects"
+    ],
+    "resume": "Vidéo de réaction de 20 minutes tirée d'une rediffusion Twitch de 2 heures.",
+    
+    "lien": {
+      "url": "https://www.youtube.com/watch?v=u2l_Tua-hKI&list=PLKr93hgejjAah6b__YifT2qWp8r19BuXz"
+    }
   }
+
+  
+
 ]
