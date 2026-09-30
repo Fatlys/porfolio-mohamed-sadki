@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/composants/navigation.css">
+  <link rel="stylesheet" href="css/composants/profil.css">
 </head>
 <body>
 
@@ -35,10 +36,38 @@
   </header>
 
   <main>
-    <!-- PAGE 1 : Accueil (une seule vue, pas de défilement) — contenu à l'étape 2 -->
+    <!-- PAGE 1 : Accueil (une seule vue, pas de défilement) -->
     <div class="page page-fixe" id="page-accueil">
-      <section id="accueil" class="section" aria-labelledby="titre-accueil">
-        <h1 class="visuellement-cache" id="titre-accueil">Accueil</h1>
+      <!-- Carte profil à gauche, moi sur un socle à droite -->
+      <section id="accueil" class="hero" aria-labelledby="profil-nom">
+        <div class="hero-gauche">
+          <div class="profil" id="profil">
+            <div class="profil-carte">
+              <img class="profil-avatar" id="profil-avatar" src="" alt="">
+              <span class="profil-textes">
+                <h1 class="profil-nom" id="profil-nom"></h1>
+                <span class="profil-sous">Portfolio</span>
+                <span class="profil-tags" id="profil-tags"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-scene">
+          <svg class="socle-svg" viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><filter id="flou-socle" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter><filter id="flou-ombre" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5"/></filter></defs>
+            <ellipse class="socle-lueur" cx="180" cy="86" rx="175" ry="30" filter="url(#flou-socle)"/>
+            <g stroke="rgba(120,170,255,0.18)" stroke-width="0.6"><polygon points="338.8,50.1 314.8,64.3 314.8,94.3 338.8,80.1" fill="rgb(27, 37, 64)"/><polygon points="314.8,64.3 264.1,74.9 264.1,104.9 314.8,94.3" fill="rgb(25, 34, 60)"/><polygon points="264.1,74.9 196.7,79.8 196.7,109.8 264.1,104.9" fill="rgb(21, 29, 52)"/><polygon points="196.7,79.8 126.0,78.0 126.0,108.0 196.7,109.8" fill="rgb(17, 24, 43)"/><polygon points="126.0,78.0 66.0,69.9 66.0,99.9 126.0,108.0" fill="rgb(14, 19, 35)"/><polygon points="66.0,69.9 28.6,57.0 28.6,87.0 66.0,99.9" fill="rgb(11, 15, 28)"/><polygon points="28.6,57.0 21.2,41.9 21.2,71.9 28.6,87.0" fill="rgb(10, 14, 26)"/><polygon points="331.4,35.0 338.8,50.1 338.8,80.1 331.4,65.0" fill="rgb(27, 37, 65)"/></g>
+            <g stroke="rgba(140,185,255,0.22)" stroke-width="0.6"><polygon points="180,46 338.8,50.1 314.8,64.3" fill="rgb(23, 32, 51)"/><polygon points="180,46 314.8,64.3 264.1,74.9" fill="rgb(22, 30, 48)"/><polygon points="180,46 264.1,74.9 196.7,79.8" fill="rgb(23, 31, 50)"/><polygon points="180,46 196.7,79.8 126.0,78.0" fill="rgb(26, 35, 56)"/><polygon points="180,46 126.0,78.0 66.0,69.9" fill="rgb(31, 42, 66)"/><polygon points="180,46 66.0,69.9 28.6,57.0" fill="rgb(37, 49, 78)"/><polygon points="180,46 28.6,57.0 21.2,41.9" fill="rgb(42, 56, 89)"/><polygon points="180,46 21.2,41.9 45.2,27.7" fill="rgb(46, 61, 96)"/><polygon points="180,46 45.2,27.7 95.9,17.1" fill="rgb(47, 63, 99)"/><polygon points="180,46 95.9,17.1 163.3,12.2" fill="rgb(46, 62, 97)"/><polygon points="180,46 163.3,12.2 234.0,14.0" fill="rgb(43, 58, 91)"/><polygon points="180,46 234.0,14.0 294.0,22.1" fill="rgb(38, 51, 81)"/><polygon points="180,46 294.0,22.1 331.4,35.0" fill="rgb(32, 44, 69)"/><polygon points="180,46 331.4,35.0 338.8,50.1" fill="rgb(27, 37, 58)"/></g>
+            <polyline class="socle-bord" points="338.8,50.1 314.8,64.3 264.1,74.9 196.7,79.8 126.0,78.0 66.0,69.9 28.6,57.0 21.2,41.9 45.2,27.7 95.9,17.1 163.3,12.2 234.0,14.0 294.0,22.1 331.4,35.0 338.8,50.1" fill="none"/>
+            <!-- ombre de contact sous les pieds -->
+            <ellipse cx="178" cy="50" rx="62" ry="11" fill="rgba(0,0,0,0.8)" filter="url(#flou-ombre)"/>
+            <ellipse cx="178" cy="50" rx="96" ry="18" fill="rgba(0,0,0,0.35)" filter="url(#flou-socle)"/>
+          </svg>
+          <span class="ombre-pied ombre-pied--gauche" aria-hidden="true"></span>
+          <span class="ombre-pied ombre-pied--droite" aria-hidden="true"></span>
+          <img class="hero-perso" id="hero-photo" src="" alt="">
+        </div>
       </section>
     </div>
 
@@ -58,7 +87,15 @@
     <!-- PAGE 3 : Contact (une seule vue) -->
     <div class="page page-fixe" id="page-contact">
       <section id="contact" class="section" aria-labelledby="titre-contact">
-        <h2 class="visuellement-cache" id="titre-contact">Contact</h2>
+        <div class="entete-section">
+          <span data-icone="courriel"></span>
+          <div>
+            <h2 id="titre-contact">Contact</h2>
+            <p>Retrouvez-moi sur les réseaux.</p>
+          </div>
+        </div>
+        <ul class="liste-contact" id="liste-contact"></ul>
+        <p class="pied">© 2026 Mohamed Ali Sadki</p>
       </section>
     </div>
   </main>

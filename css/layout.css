@@ -3,6 +3,83 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
 
 .section { padding-block: var(--esp-5); }
 
+.entete-section { display: flex; align-items: center; gap: var(--esp-2); margin-bottom: var(--esp-4); }
+.entete-section .icone { width: 2.6rem; height: 2.6rem; color: var(--texte); }
+.entete-section h2 { font-size: var(--taille-l); }
+.entete-section p { color: var(--texte-doux); font-size: var(--taille-s); }
+
+/* ----- Accueil : carte et personnage rapprochés au centre ----- */
+.hero {
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0;
+}
+.hero-gauche { display: grid; justify-items: center; gap: var(--esp-2); }
+
+/* Scène : le personnage debout sur le socle */
+.hero-scene {
+  position: relative;
+  justify-self: center;
+  height: min(74vh, 660px);
+  aspect-ratio: 420 / 680; /* proportions fixes : les pieds restent calés sur le socle */
+  margin-left: -2rem; /* rapproche le personnage de la carte */
+}
+.hero-perso {
+  position: absolute; left: 50%; bottom: 10.5%; z-index: 2;
+  height: 84%; width: auto; max-width: none;
+  transform: translateX(-50%);
+}
+/* Ombres sous chaque chaussure : le personnage touche le socle */
+.ombre-pied {
+  position: absolute; z-index: 1;
+  height: 3%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5) 45%, transparent 72%);
+  transform: translateX(-50%);
+}
+.ombre-pied--gauche { left: 36.5%; bottom: 11.4%; width: 22%; }
+.ombre-pied--droite { left: 68.5%; bottom: 9.3%; width: 17%; }
+.socle-svg { position: absolute; left: 50%; bottom: 0; width: 88%; transform: translateX(-50%); overflow: visible; }
+.socle-lueur { fill: rgba(58, 141, 255, 0.5); }
+.socle-bord { stroke: #8cc0ff; stroke-width: 1.4; filter: drop-shadow(0 0 4px #3a8dff); }
+
+/* ----- Contact ----- */
+.liste-contact { list-style: none; padding: 0; display: grid; gap: 0.7rem; width: min(100%, 34rem); margin-inline: auto; }
+.lien-contact {
+  width: 100%; text-align: left;
+  display: grid; grid-template-columns: auto 7rem 1fr auto; align-items: center; gap: var(--esp-2);
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--bordure); border-radius: var(--rayon);
+  background: var(--surface);
+  font-size: var(--taille-s);
+  transition: box-shadow var(--transition), background var(--transition);
+}
+.lien-contact:hover, .lien-contact:focus-visible { box-shadow: var(--lueur); background: var(--surface-survol); outline: none; }
+.lien-contact .valeur { color: var(--texte-doux); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lien-contact .icone { width: 1.3em; height: 1.3em; }
+.lien-contact .icone:last-child { width: 1em; height: 1em; opacity: 0.6; }
+
+.pied { text-align: center; color: var(--texte-doux); font-size: var(--taille-xs); padding: var(--esp-4) var(--esp-2); }
+
+/* Contact : tout centré, un peu au-dessus du milieu */
+#page-contact .section {
+  position: relative;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding-block: 2.5rem 5.5rem;
+}
+#page-contact .entete-section { justify-content: center; text-align: left; margin-bottom: var(--esp-3); }
+#page-contact .pied { position: absolute; left: 0; right: 0; bottom: 0; padding-bottom: var(--esp-2); }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; justify-items: center; padding-block: var(--esp-3); height: auto; }
+  .hero-scene { grid-row: 1; height: min(58vh, 500px); margin-left: 0; }
+  .lien-contact { grid-template-columns: auto 5.5rem 1fr auto; }
+}
+
+
 /* ----- Pages ----- */
 .page { display: none; }
 .page.active { display: block; animation: apparition 0.45s ease both; }
@@ -13,8 +90,7 @@ html.sans-defilement, html.sans-defilement body { overflow: hidden; }
 .page-fixe { height: calc(100dvh - var(--hauteur-nav)); }
 .page-fixe .section { height: 100%; }
 
-/* Page défilante : Projets, Demo reel et Compétences espacés.
-   Hauteur minimale provisoire tant que les sections sont vides (étapes suivantes). */
+/* Page défilante : Projets, Demo reel et Compétences espacés */
 #page-contenu .section { padding-block: 7rem; min-height: 100vh; }
 #page-contenu .section + .section { border-top: 1px solid rgba(255, 255, 255, 0.05); }
 

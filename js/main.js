@@ -1,5 +1,5 @@
 /* =========================================================
-   main.js — étape 1 : fond animé, menu et navigation entre les pages
+   main.js — assemble la page
    ========================================================= */
 
 /* 1. Icônes : remplit chaque <span data-icone="..."> */
@@ -12,7 +12,41 @@ document.querySelectorAll("[data-icone]").forEach((el) => {
 /* 2. Vagues animées du fond */
 const vagues = creerVagues(document.getElementById("vagues-canvas"));
 
-/* 3. Trois pages : Accueil (fixe), Contenu (défilement), Contact (fixe)
+/* 3. Accueil : carte profil et personnage */
+const photo = document.getElementById("hero-photo");
+photo.src = PROFIL.photo;
+photo.alt = `${PROFIL.nom} en version low poly`;
+document.getElementById("profil-avatar").src = PROFIL.avatar;
+document.getElementById("profil-nom").textContent = PROFIL.nom;
+document.getElementById("profil-tags").textContent = PROFIL.tags;
+
+/* 4. Contact : liste des réseaux ; Discord copie le pseudo */
+function icone(nom) {
+  return `<span class="icone" aria-hidden="true">${ICONES[nom] || ""}</span>`;
+}
+document.getElementById("liste-contact").innerHTML = CONTACTS.map((c) => {
+  const contenu = `${icone(c.icone)}<span>${c.reseau}</span><span class="valeur">${c.valeur}</span>${icone("chevron")}`;
+  if (c.copier) {
+    return `<li><button class="lien-contact" type="button" data-copier="${c.valeur}" aria-label="Copier le pseudo ${c.reseau} ${c.valeur}">${contenu}</button></li>`;
+  }
+  const externe = c.url.startsWith("http") ? 'target="_blank" rel="noopener"' : "";
+  return `<li><a class="lien-contact" href="${c.url}" ${externe}>${contenu}</a></li>`;
+}).join("");
+
+document.querySelectorAll("[data-copier]").forEach((bouton) => {
+  bouton.addEventListener("click", async () => {
+    const valeur = bouton.querySelector(".valeur");
+    try {
+      await navigator.clipboard.writeText(bouton.dataset.copier);
+      valeur.textContent = "Pseudo copié !";
+    } catch (e) {
+      valeur.textContent = bouton.dataset.copier;
+    }
+    setTimeout(() => (valeur.textContent = bouton.dataset.copier), 1800);
+  });
+});
+
+/* 5. Trois pages : Accueil (fixe), Contenu (défilement), Contact (fixe)
    Le menu garde les 5 onglets ; Projets, Demo reel et Compétences
    ouvrent la page Contenu et descendent jusqu'à la bonne section. */
 const liensNav = document.querySelectorAll(".nav-lien");
@@ -73,7 +107,7 @@ function suivreSection() {
 }
 window.addEventListener("scroll", suivreSection, { passive: true });
 
-/* 4. Horloge de la barre d'état (jj/mm hh:mm) */
+/* 6. Horloge de la barre d'état (jj/mm hh:mm) */
 function majHorloge() {
   const d = new Date();
   const deux = (n) => String(n).padStart(2, "0");

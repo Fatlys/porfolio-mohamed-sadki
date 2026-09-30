@@ -1,7 +1,6 @@
 /* =========================================================
    data.js — contenu du portfolio
-   Étape 1 : les icônes. Le profil, les projets, le demo reel,
-   les compétences et les contacts arrivent aux étapes suivantes.
+   Icônes, profil et contacts.
    ========================================================= */
 
 const ICONES = {
@@ -30,3 +29,20 @@ const ICONES = {
   lien: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 28l8-8\"/><path d=\"M22 14l3-3a8 8 0 0 1 12 12l-3 3\"/><path d=\"M26 34l-3 3a8 8 0 0 1-12-12l3-3\"/></svg>",
   design: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"6\" y=\"9\" width=\"36\" height=\"28\" rx=\"3\"/><path d=\"M6 16h36M17 41h14M24 37v4\"/><rect x=\"11\" y=\"21\" width=\"12\" height=\"11\" rx=\"1\"/><path d=\"M28 22h9M28 27h9M28 32h5\"/></svg>"
 };
+
+/* Profil affiché sur la carte de l'accueil */
+const PROFIL = {
+  nom: "Mohamed Ali Sadki",
+  photo: "assets/images/perso-low-poly.png",
+  avatar: "assets/images/moi.png",
+  tags: "Design · Vidéo · 3D",
+};
+
+/* Contacts (vérifie tes liens et ton pseudo Discord) */
+const CONTACTS = [
+  { reseau: "Gmail", valeur: "mohamedali.sadki@gmail.com", url: "mailto:mohamedali.sadki@gmail.com", icone: "courriel" },
+  { reseau: "Instagram", valeur: "@ali.sadki", url: "https://www.instagram.com/ali.sadki", icone: "lien" },
+  { reseau: "GitHub", valeur: "/ali-sadki", url: "https://github.com/ali-sadki", icone: "lien" },
+  /* Discord : pas de lien public par pseudo, un clic copie le pseudo */
+  { reseau: "Discord", valeur: "ali.sadki", copier: true, icone: "message" },
+];
