@@ -21,11 +21,9 @@
 
 .carte-titre { display: block; margin-top: 0.5rem; font-size: var(--taille-s); color: var(--texte-doux); }
 
-/* Carte sélectionnée (survol ou clavier) */
+/* Carte sélectionnée (survol souris ou sélection active) */
 .carte-projet:focus-visible { outline: none; }
 .carte-projet:hover .carte-visuel,
-.carte-projet:focus-visible .carte-visuel,
 .carte-projet.active .carte-visuel { border-color: var(--bleu); box-shadow: var(--lueur); }
 .carte-projet:hover .carte-titre,
-.carte-projet:focus-visible .carte-titre,
 .carte-projet.active .carte-titre { color: var(--texte); }

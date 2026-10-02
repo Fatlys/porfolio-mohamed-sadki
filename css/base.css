@@ -28,7 +28,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 h1, h2, h3 { font-weight: 300; line-height: 1.15; }
 
-:focus-visible { outline: 2px solid var(--bleu); outline-offset: 3px; }
+:focus-visible { outline: none; }
 
 /* Icônes SVG injectées par JS */
 .icone { display: inline-flex; width: 1.5em; height: 1.5em; flex: none; }

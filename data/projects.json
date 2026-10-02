@@ -66,7 +66,7 @@
     "id": "vr-tir-arc",
     "titre": "Jeu VR — Tir à l'arc",
     "categorie": "jeux",
-    "image": null,
+    "image": "assets/images/jeu-vr.png",
     "mention": "Académique",
     "cours": "Réalité mixte",
     "equipe": "Équipe",
