@@ -21,9 +21,6 @@ document.getElementById("profil-nom").textContent = PROFIL.nom;
 document.getElementById("profil-tags").textContent = PROFIL.tags;
 
 /* 4. Contact : liste des réseaux ; Discord copie le pseudo */
-function icone(nom) {
-  return `<span class="icone" aria-hidden="true">${ICONES[nom] || ""}</span>`;
-}
 document.getElementById("liste-contact").innerHTML = CONTACTS.map((c) => {
   const contenu = `${icone(c.icone)}<span>${c.reseau}</span><span class="valeur">${c.valeur}</span>${icone("chevron")}`;
   if (c.copier) {
@@ -46,7 +43,81 @@ document.querySelectorAll("[data-copier]").forEach((bouton) => {
   });
 });
 
-/* 5. Trois pages : Accueil (fixe), Contenu (défilement), Contact (fixe)
+/* 5. Projets : chargés depuis data/projects.json
+   (fetch a besoin de Live Server : il ne marche pas en double-cliquant sur index.html) */
+async function chargerProjets() {
+  try {
+    const reponse = await fetch("data/projects.json");
+    if (!reponse.ok) throw new Error(`Erreur ${reponse.status}`);
+    return await reponse.json();
+  } catch (erreur) {
+    console.error("Impossible de charger les projets :", erreur);
+    return [];
+  }
+}
+
+/* Une rangée par catégorie, avec un panneau d'aperçu à droite */
+function afficherProjets(projets) {
+  const conteneurRangees = document.getElementById("rangees-projets");
+
+  CATEGORIES.forEach((categorie) => {
+    const projetsCategorie = projets.filter((p) => p.categorie === categorie.cle);
+
+    const rangee = document.createElement("section");
+    rangee.className = "rangee";
+    rangee.id = categorie.id;
+    rangee.setAttribute("aria-labelledby", `titre-${categorie.id}`);
+    rangee.innerHTML = `
+      <h3 class="rangee-titre" id="titre-${categorie.id}">${icone(categorie.icone)} ${categorie.titre}</h3>
+      <div class="rangee-cartes"></div>
+      <div class="rangee-details" aria-live="polite"></div>`;
+
+    const cartes = rangee.querySelector(".rangee-cartes");
+    const details = rangee.querySelector(".rangee-details");
+
+    function afficherDetails(projet, carte) {
+      cartes.querySelectorAll(".carte-projet").forEach((c) => c.classList.remove("active"));
+      carte.classList.add("active");
+      const meta = [projet.mention, projet.cours ? `Cours ${projet.cours}` : null].filter(Boolean).join(", ");
+      details.innerHTML = `<h3>${projet.titre}</h3><p class="meta">${meta}</p><p>${projet.resume}</p>`;
+    }
+
+    if (projetsCategorie.length === 0) {
+      cartes.innerHTML = `<p class="rangee-vide">${categorie.vide || "Aucun projet pour l'instant."}</p>`;
+    } else {
+      projetsCategorie.forEach((projet) => cartes.appendChild(creerCarteProjet(projet, afficherDetails)));
+      afficherDetails(projetsCategorie[0], cartes.firstElementChild);
+    }
+
+    conteneurRangees.appendChild(rangee);
+  });
+}
+
+chargerProjets().then((projets) => {
+  afficherProjets(projets);
+  // les projets arrivent après le chargement : on se replace sur la bonne section
+  if (location.hash && location.hash !== "#projets") document.getElementById(location.hash.slice(1))?.scrollIntoView();
+});
+
+/* 6. Demo reel : PSP 3D fixe, écran éteint */
+if (window.creerPSP3D) creerPSP3D(document.getElementById("psp-scene"));
+
+/* 7. Compétences : une barre par logiciel */
+document.getElementById("liste-competences").innerHTML = COMPETENCES.map(
+  (c) => `
+  <li class="competence">
+    <div class="competence-texte">
+      <span class="competence-nom">${c.logiciel}</span>
+      <span class="competence-domaine">${c.domaine}</span>
+    </div>
+    <span class="competence-pourcent">${c.niveau} %</span>
+    <div class="competence-barre" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${c.niveau}" aria-label="${c.logiciel}">
+      <span style="--niveau: ${c.niveau}%"></span>
+    </div>
+  </li>`
+).join("");
+
+/* 8. Trois pages : Accueil (fixe), Contenu (défilement), Contact (fixe)
    Le menu garde les 5 onglets ; Projets, Demo reel et Compétences
    ouvrent la page Contenu et descendent jusqu'à la bonne section. */
 const liensNav = document.querySelectorAll(".nav-lien");
@@ -107,7 +178,7 @@ function suivreSection() {
 }
 window.addEventListener("scroll", suivreSection, { passive: true });
 
-/* 6. Horloge de la barre d'état (jj/mm hh:mm) */
+/* 9. Horloge de la barre d'état (jj/mm hh:mm) */
 function majHorloge() {
   const d = new Date();
   const deux = (n) => String(n).padStart(2, "0");

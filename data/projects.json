@@ -1,0 +1,113 @@
+[
+  {
+    "id": "hamza-pixel-war",
+    "titre": "Montage vidéo pour Hamza Kerdaloco",
+    "categorie": "video",
+    "image": "assets/images/minia 1.png",
+    "mention": "Personnel",
+    "cours": null,
+    "equipe": "Individuel",
+    "coequipiers": [],
+    "role": "Montage vidéo",
+    "logiciels": [
+      "Premiere Pro",
+      "After Effects"
+    ],
+    "resume": "Vidéo de réaction de 20 minutes tirée d'une rediffusion Twitch de 2 heures.",
+    "demande": "Transformer une rediffusion Twitch de 2 heures en une vidéo condensée de 20 minutes.",
+    "realisation": "Le YouTuber réagissait à une Pixel War sur Reddit. J'ai visionné toute la rediffusion, sélectionné les meilleurs moments et réalisé le montage complet (rythme, transitions, effets) pour produire une vidéo de 20 minutes.",
+    "lien": {
+      "texte": "Voir la vidéo",
+      "url": "https://www.youtube.com/watch?v=u2l_Tua-hKI&list=PLKr93hgejjAah6b__YifT2qWp8r19BuXz"
+    }
+  },
+  {
+    "id": "king-chris-drapeaux",
+    "titre": "Montage vidéo pour King Chris",
+    "categorie": "video",
+    "image": "assets/images/minia 2.png",
+    "mention": "Personnel",
+    "cours": null,
+    "equipe": "Individuel",
+    "coequipiers": [],
+    "role": "Montage vidéo",
+    "logiciels": [
+      "Premiere Pro",
+      "After Effects"
+    ],
+    "resume": "Vidéo courte et rythmée tirée d'un quiz de drapeaux en direct.",
+    "demande": "Transformer une rediffusion Twitch de 2 heures (quiz de reconnaissance de drapeaux) en une vidéo courte et dynamique.",
+    "realisation": "J'ai monté les meilleurs moments (réactions et blagues) de la session de 2 heures où King Chris devait deviner des pays à partir de leur drapeau, pour produire une vidéo rythmée.",
+    "lien": {
+      "texte": "Voir la vidéo",
+      "url": "https://www.youtube.com/watch?v=uKTivTuKXeA&list=PLKr93hgejjAah6b__YifT2qWp8r19BuXz&index=4"
+    }
+  },
+  {
+    "id": "king-chris-classement",
+    "titre": "Vidéo classement",
+    "categorie": "video",
+    "image": "assets/images/minia 3.png",
+    "mention": "Personnel",
+    "cours": null,
+    "equipe": "Individuel",
+    "coequipiers": [],
+    "role": "Montage vidéo",
+    "logiciels": [
+      "Premiere Pro",
+      "After Effects"
+    ],
+    "resume": "Montage d'une vidéo de classement à partir d'une rediffusion Twitch.",
+    "demande": "À compléter.",
+    "realisation": "À compléter.",
+    "lien": null
+  },
+  {
+    "id": "vr-tir-arc",
+    "titre": "Jeu VR — Tir à l'arc",
+    "categorie": "jeux",
+    "image": null,
+    "mention": "Académique",
+    "cours": "Réalité mixte",
+    "equipe": "Équipe",
+    "coequipiers": [
+      "Bradley Fosu",
+      "Marlon Harley Labbé"
+    ],
+    "role": "Programmation de la mécanique de tir à l'arc",
+    "logiciels": [
+      "Unity"
+    ],
+    "resume": "Jeu VR où le joueur manipule un arc pour toucher des cibles le plus vite possible.",
+    "demande": "Concevoir un jeu de tir à l'arc en réalité virtuelle avec une mécanique de tir fonctionnelle, une interaction VR et plusieurs niveaux de difficulté progressive.",
+    "realisation": "J'étais responsable de la mécanique de jeu : attraper l'arc, faire apparaître les flèches, viser, tirer, gérer la physique des projectiles et faire disparaître les flèches à l'impact, sur 3 niveaux de difficulté croissante.",
+    "processus": [
+      "Création d'un moodboard pour définir le style visuel et la direction artistique.",
+      "Illustration concrète du jeu dans Photoshop.",
+      "Schéma détaillé du déroulement de l'expérience de jeu.",
+      "Planification du projet et répartition des tâches pour optimiser la productivité et la gestion du temps."
+    ],
+    "lien": null
+  },
+  {
+    "id": "electro",
+    "titre": "Electro",
+    "categorie": "design",
+    "image": "assets/images/project-web1.png",
+    "mention": "Académique",
+    "cours": "Web 4",
+    "equipe": "Individuel",
+    "coequipiers": [],
+    "role": "Design web",
+    "logiciels": [
+      "WordPress"
+    ],
+    "resume": "Site web d'une entreprise en électronique, avec une interface moderne adaptée à son identité visuelle.",
+    "demande": "Concevoir et réaliser un site web qui respecte les besoins d'une entreprise, son identité visuelle et les principes de conception web, avec une interface claire, structurée et facile à naviguer.",
+    "realisation": "J'ai créé et personnalisé le site sur WordPress en travaillant la mise en page, les couleurs, la typographie et l'organisation des sections, pour un site clair, fonctionnel et agréable à utiliser.",
+    "lien": {
+      "texte": "Voir le site",
+      "url": "https://202397469.tim-momo.com/Project/"
+    }
+  }
+]

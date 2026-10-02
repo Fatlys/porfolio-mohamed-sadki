@@ -1,6 +1,7 @@
 /* =========================================================
    data.js — contenu du portfolio
-   Icônes, profil et contacts.
+   Icônes, profil, contacts, catégories de projets et compétences.
+   Les projets sont dans data/projects.json.
    ========================================================= */
 
 const ICONES = {
@@ -45,4 +46,23 @@ const CONTACTS = [
   { reseau: "GitHub", valeur: "/ali-sadki", url: "https://github.com/ali-sadki", icone: "lien" },
   /* Discord : pas de lien public par pseudo, un clic copie le pseudo */
   { reseau: "Discord", valeur: "ali.sadki", copier: true, icone: "message" },
+];
+
+/* Rangées de la section Projets (l'ordre compte).
+   "cle" correspond à la "categorie" des projets dans data/projects.json */
+const CATEGORIES = [
+  { id: "videos", cle: "video", titre: "Montage vidéo", icone: "film" },
+  { id: "jeux", cle: "jeux", titre: "Jeux vidéo", icone: "manette" },
+  { id: "design", cle: "design", titre: "Design web", icone: "design" },
+];
+
+/* Compétences : niveau de maîtrise en pourcentage */
+const COMPETENCES = [
+  { logiciel: "After Effects", domaine: "Motion design", niveau: 100 },
+  { logiciel: "Premiere Pro", domaine: "Montage vidéo", niveau: 100 },
+  { logiciel: "DaVinci Resolve", domaine: "Montage et étalonnage", niveau: 100 },
+  { logiciel: "Photoshop", domaine: "Retouche et design graphique", niveau: 100 },
+  { logiciel: "Figma", domaine: "Design d'interface", niveau: 100 },
+  { logiciel: "Maya", domaine: "Modélisation et animation 3D", niveau: 80 },
+  { logiciel: "Unity", domaine: "Jeu vidéo et réalité virtuelle", niveau: 80 },
 ];

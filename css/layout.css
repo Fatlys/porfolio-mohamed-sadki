@@ -46,6 +46,26 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
 .socle-lueur { fill: rgba(58, 141, 255, 0.5); }
 .socle-bord { stroke: #8cc0ff; stroke-width: 1.4; filter: drop-shadow(0 0 4px #3a8dff); }
 
+/* ----- Projets : une rangée par catégorie, centrée ----- */
+.section-projets { max-width: 980px; margin-inline: auto; }
+.rangee {
+  display: grid;
+  grid-template-columns: minmax(0, 640px) 16rem;
+  justify-content: center;
+  gap: var(--esp-3);
+  padding-block: var(--esp-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.rangee-titre { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--esp-1); font-size: var(--taille-m); font-weight: 400; }
+.rangee-titre .icone { width: 1.4em; height: 1.4em; }
+.rangee-cartes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--esp-2); align-content: start; }
+.rangee-vide { grid-column: 1 / -1; color: var(--texte-doux); font-size: var(--taille-s); }
+
+.rangee-details { border-left: 1px solid rgba(255, 255, 255, 0.1); padding-left: var(--esp-3); font-size: var(--taille-s); }
+.rangee-details h3 { font-size: var(--taille-m); font-weight: 400; margin-bottom: 0.2rem; }
+.rangee-details .meta { color: var(--texte-doux); margin-bottom: var(--esp-1); }
+.rangee-details p:last-child { color: #c6ccd8; }
+
 /* ----- Contact ----- */
 .liste-contact { list-style: none; padding: 0; display: grid; gap: 0.7rem; width: min(100%, 34rem); margin-inline: auto; }
 .lien-contact {
@@ -77,6 +97,9 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
   .hero { grid-template-columns: 1fr; justify-items: center; padding-block: var(--esp-3); height: auto; }
   .hero-scene { grid-row: 1; height: min(58vh, 500px); margin-left: 0; }
   .lien-contact { grid-template-columns: auto 5.5rem 1fr auto; }
+  .rangee { grid-template-columns: 1fr; }
+  .rangee-cartes { grid-template-columns: repeat(2, 1fr); }
+  .rangee-details { border-left: 0; padding-left: 0; }
 }
 
 
@@ -91,7 +114,7 @@ html.sans-defilement, html.sans-defilement body { overflow: hidden; }
 .page-fixe .section { height: 100%; }
 
 /* Page défilante : Projets, Demo reel et Compétences espacés */
-#page-contenu .section { padding-block: 7rem; min-height: 100vh; }
+#page-contenu .section { padding-block: 7rem; }
 #page-contenu .section + .section { border-top: 1px solid rgba(255, 255, 255, 0.05); }
 
 /* Écran trop petit : on autorise le défilement à l'intérieur de la page */

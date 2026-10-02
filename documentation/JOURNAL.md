@@ -122,3 +122,28 @@ Prompt : Change le style de la page Contact pour qu'il suive l'identité visuell
 Résultat : Copilot a changé le style des lignes de contact : fond sombre transparent, bordure fine, coins arrondis et lueur bleue au survol, avec les couleurs du site. 
 
 Accepté tel quel
+
+## Étape 5 — Mise en page Projets
+
+date : 31 septembre
+
+Prompt :
+
+
+Outil : Copilot
+
+
+Résultat :
+
+
+## Étape 6 — Demo reel/ Compétences
+
+date : 1 octobre
+
+Prompt :
+
+
+Outil : Copilot
+
+
+Résultat :

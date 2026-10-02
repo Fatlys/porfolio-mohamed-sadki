@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/composants/navigation.css">
   <link rel="stylesheet" href="css/composants/profil.css">
+  <link rel="stylesheet" href="css/composants/carte-projet.css">
+  <link rel="stylesheet" href="css/composants/psp.css">
+  <link rel="stylesheet" href="css/composants/competences.css">
 </head>
 <body>
 
@@ -73,14 +76,40 @@
 
     <!-- PAGE 2 : Projets, Demo reel, Compétences (défilement) -->
     <div class="page" id="page-contenu">
-      <section id="projets" class="section" aria-labelledby="titre-projets">
-        <h2 class="visuellement-cache" id="titre-projets">Projets</h2>
+      <!-- Projets : chargés depuis data/projects.json -->
+      <section id="projets" class="section section-projets" aria-labelledby="titre-projets">
+        <div class="entete-section">
+          <span data-icone="dossier"></span>
+          <div>
+            <h2 id="titre-projets">Projets</h2>
+            <p>Survole un projet pour voir l'aperçu.</p>
+          </div>
+        </div>
+        <div id="rangees-projets"></div>
       </section>
+
+      <!-- Demo reel : PSP 3D -->
       <section id="demo-reel" class="section" aria-labelledby="titre-demo-reel">
-        <h2 class="visuellement-cache" id="titre-demo-reel">Demo reel</h2>
+        <div class="entete-section">
+          <span data-icone="lecture"></span>
+          <div>
+            <h2 id="titre-demo-reel">Demo reel</h2>
+            <p>Un aperçu de mon travail, sur l'écran de la PSP.</p>
+          </div>
+        </div>
+        <div class="psp-scene" id="psp-scene" role="img" aria-label="PSP en 3D"></div>
       </section>
+
+      <!-- Compétences -->
       <section id="competences" class="section" aria-labelledby="titre-competences">
-        <h2 class="visuellement-cache" id="titre-competences">Compétences</h2>
+        <div class="entete-section">
+          <span data-icone="competences"></span>
+          <div>
+            <h2 id="titre-competences">Compétences</h2>
+            <p>Les logiciels que je maîtrise.</p>
+          </div>
+        </div>
+        <ul class="liste-competences" id="liste-competences"></ul>
       </section>
     </div>
 
@@ -101,8 +130,11 @@
   </main>
 
   <!-- Scripts (l'ordre compte) -->
+  <script src="assets/modeles/psp-modele.js"></script>
+  <script src="js/composants/psp-3d.js"></script>
   <script src="js/data.js"></script>
   <script src="js/composants/vagues.js"></script>
+  <script src="js/composants/carte-projet.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

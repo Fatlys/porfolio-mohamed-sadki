@@ -1,0 +1,36 @@
+/* Compétences : une barre de maîtrise par logiciel */
+.liste-competences {
+  list-style: none; padding: 0;
+  max-width: 860px; margin-inline: auto;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--esp-2) var(--esp-4);
+}
+#competences .entete-section { max-width: 860px; margin-inline: auto; }
+
+.competence {
+  display: grid; grid-template-columns: 1fr auto; gap: 0.5rem 1rem; align-items: end;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--bordure); border-radius: var(--rayon);
+  background: var(--surface);
+}
+.competence-texte { display: flex; flex-direction: column; }
+.competence-nom { font-size: var(--taille-m); }
+.competence-domaine { font-size: var(--taille-xs); color: var(--texte-doux); }
+.competence-pourcent { font-size: var(--taille-s); color: var(--bleu); font-variant-numeric: tabular-nums; }
+
+.competence-barre {
+  grid-column: 1 / -1;
+  height: 6px; border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+/* la barre est remplie selon le niveau (--niveau, défini en JS) */
+.competence-barre span {
+  display: block; height: 100%; width: var(--niveau);
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1f5fc4, var(--bleu), #8cc0ff);
+  box-shadow: 0 0 12px var(--bleu-lueur);
+}
+
+@media (max-width: 700px) {
+  .liste-competences { grid-template-columns: 1fr; }
+}

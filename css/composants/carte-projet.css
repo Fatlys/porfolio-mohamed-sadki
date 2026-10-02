@@ -1,0 +1,31 @@
+/* Carte projet (vignette) */
+.carte-projet {
+  display: block; width: 100%;
+  border-radius: var(--rayon);
+}
+.carte-visuel {
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+  border: 1px solid var(--bordure); border-radius: var(--rayon);
+  background: #0b1224;
+}
+.carte-visuel img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Projet sans image : fond + icône + titre */
+.carte-visuel--vide {
+  display: grid; place-items: center; align-content: center; gap: 0.5rem;
+  background: radial-gradient(circle at 50% 30%, #16284f, #070c1a 75%);
+  color: #cfe0ff; text-align: center; padding: var(--esp-1);
+}
+.carte-visuel--vide .icone { width: 2.6rem; height: 2.6rem; }
+.carte-visuel--vide span:last-child { font-size: var(--taille-s); letter-spacing: 0.08em; }
+
+.carte-titre { display: block; margin-top: 0.5rem; font-size: var(--taille-s); color: var(--texte-doux); }
+
+/* Carte sélectionnée (survol ou clavier) */
+.carte-projet:focus-visible { outline: none; }
+.carte-projet:hover .carte-visuel,
+.carte-projet:focus-visible .carte-visuel,
+.carte-projet.active .carte-visuel { border-color: var(--bleu); box-shadow: var(--lueur); }
+.carte-projet:hover .carte-titre,
+.carte-projet:focus-visible .carte-titre,
+.carte-projet.active .carte-titre { color: var(--texte); }
