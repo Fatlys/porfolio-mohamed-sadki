@@ -99,8 +99,48 @@ chargerProjets().then((projets) => {
   if (location.hash && location.hash !== "#projets") document.getElementById(location.hash.slice(1))?.scrollIntoView();
 });
 
-/* 6. Demo reel : PSP 3D fixe, écran éteint */
-if (window.creerPSP3D) creerPSP3D(document.getElementById("psp-scene"));
+/* 6. Demo reel : PSP 3D animée */
+const pspScene = document.getElementById("psp-scene");
+const pspAide = document.getElementById("psp-aide");
+let psp3d = null;
+
+if (window.creerPSP3D) {
+  psp3d = window.creerPSP3D(pspScene);
+
+  function mettreAJourAidePSP() {
+    if (!psp3d) return;
+    const agrandie = psp3d.estAgrandie();
+    pspScene.setAttribute("aria-pressed", String(agrandie));
+    pspAide.textContent = agrandie
+      ? "Clique à nouveau ou Échap pour revenir"
+      : "Clique sur la PSP pour regarder";
+  }
+
+  if (psp3d) {
+    psp3d.onChange = mettreAJourAidePSP;
+    pspScene.addEventListener("click", () => psp3d.basculer());
+    pspScene.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " " || event.code === "Space") {
+        event.preventDefault();
+        psp3d.basculer();
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && psp3d.estAgrandie()) {
+        event.preventDefault();
+        psp3d.fermer();
+      }
+    });
+    pspScene.addEventListener("pointermove", (event) => {
+      const rect = pspScene.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      psp3d.setPointer(x * 2, y * 2);
+    });
+    pspScene.addEventListener("pointerleave", () => psp3d.setPointer(0, 0));
+    mettreAJourAidePSP();
+  }
+}
 
 /* 7. Compétences : une barre par logiciel */
 document.getElementById("liste-competences").innerHTML = COMPETENCES.map(

@@ -122,6 +122,7 @@
     const donnees = window.PSP_MODELE;
     if (!donnees) { console.error("psp-modele.js doit être chargé avant psp-3d.js"); return null; }
     const opts = Object.assign({ couleurAccent: [0.23, 0.55, 1.0] }, options || {});
+    const motionReduced = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false;
 
     /* ---------- Contexte WebGL ---------- */
     const canvas = document.createElement("canvas");
@@ -130,6 +131,11 @@
     const gl = canvas.getContext("webgl", { antialias: true, alpha: true, premultipliedAlpha: false });
     if (!gl) { conteneur.classList.add("psp-sans-webgl"); return null; }
     gl.getExtension("OES_standard_derivatives");
+
+    conteneur.setAttribute("role", "button");
+    conteneur.setAttribute("tabindex", "0");
+    conteneur.setAttribute("aria-label", "PSP en 3D");
+    conteneur.setAttribute("aria-pressed", "false");
 
     function compiler(type, source) {
       const s = gl.createShader(type);
@@ -185,7 +191,7 @@
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
         gl.generateMipmap(gl.TEXTURE_2D);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-        demanderDessin(); // on redessine quand un symbole est chargé
+        if (visible) demanderDessin();
       };
       img.src = url;
     });
@@ -219,7 +225,6 @@
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
 
-
     /* ---------- Dessin d'une pièce ---------- */
     function lier(attr, buffer, taille, type, normalise, pas) {
       if (attr < 0) return;
@@ -229,16 +234,114 @@
     }
     function dessiner(p, uv) {
       lier(A.pos, p.pos, 3, gl.UNSIGNED_SHORT, true);
-      lier(A.nor, p.nor, 3, gl.BYTE, true, 4); // normales rangées par 4 octets
+      lier(A.nor, p.nor, 3, gl.BYTE, true, 4);
       if (uv) lier(A.uv, uv, 2, gl.UNSIGNED_SHORT, true);
       else if (A.uv >= 0) { gl.disableVertexAttribArray(A.uv); gl.vertexAttrib2f(A.uv, 0, 0); }
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, p.idx);
       gl.drawElements(gl.TRIANGLES, p.ni, gl.UNSIGNED_SHORT, 0);
     }
 
+    const pose = { rx: 0.32, ry: -0.35, rz: 0, y: 0, remplissage: 0.78 };
+    const cible = { rx: 0.32, ry: -0.35, rz: 0, y: 0, remplissage: 0.78 };
+    let pointerX = 0;
+    let pointerY = 0;
+    let agrandie = false;
+    let visible = true;
+    let rafId = null;
+    let dernierTemps = 0;
 
-    /* ---------- Pose fixe de la PSP ---------- */
-    const pose = { rx: 0.32, ry: -0.35, rz: 0, remplissage: 0.78 };
+    function majEtat() {
+      conteneur.classList.toggle("agrandie", agrandie);
+      conteneur.setAttribute("aria-pressed", String(agrandie));
+      if (typeof api.onChange === "function") api.onChange();
+    }
+
+    function definirAgrandie(bas) {
+      agrandie = Boolean(bas);
+      if (agrandie) {
+        cible.rx = 0;
+        cible.ry = 0;
+        cible.rz = 0;
+        cible.y = 0;
+        cible.remplissage = 1.05;
+      } else {
+        cible.rx = 0.32;
+        cible.ry = -0.35;
+        cible.rz = 0;
+        cible.y = 0;
+        cible.remplissage = 0.78;
+      }
+      majEtat();
+    }
+
+    function positionnerSouris(x, y) {
+      pointerX = Number.isFinite(x) ? x : 0;
+      pointerY = Number.isFinite(y) ? y : 0;
+      if (!agrandie) {
+        cible.ry = Math.sin(dernierTemps * 0.001 * 0.9) * 0.42 + pointerX * 0.22;
+        cible.rx = 0.18 + Math.cos(dernierTemps * 0.001 * 1.15) * 0.08 - pointerY * 0.14;
+        cible.rz = pointerX * 0.08;
+      }
+    }
+
+    function animer(ts) {
+      if (!visible) {
+        rafId = null;
+        return;
+      }
+
+      const dt = Math.min(0.05, dernierTemps ? (ts - dernierTemps) / 1000 : 1 / 60);
+      dernierTemps = ts;
+      const t = ts * 0.001;
+
+      if (agrandie) {
+        cible.rx = 0;
+        cible.ry = 0;
+        cible.rz = 0;
+        cible.y = 0;
+        cible.remplissage = 1.05;
+      } else if (motionReduced) {
+        cible.rx = 0.12 - pointerY * 0.08;
+        cible.ry = pointerX * 0.16;
+        cible.rz = pointerX * 0.05;
+        cible.y = 0;
+        cible.remplissage = 0.78;
+      } else {
+        cible.rx = 0.16 + Math.cos(t * 0.55) * 0.05 - pointerY * 0.08;
+        cible.ry = Math.sin(t * 0.42) * 0.24 + pointerX * 0.16;
+        cible.rz = pointerX * 0.05;
+        cible.y = Math.sin(t * 0.9) * 0.05;
+        cible.remplissage = 0.78;
+      }
+
+      const lissage = Math.min(1, dt * 2.5);
+      pose.rx += (cible.rx - pose.rx) * lissage;
+      pose.ry += (cible.ry - pose.ry) * lissage;
+      pose.rz += (cible.rz - pose.rz) * lissage;
+      pose.y += (cible.y - pose.y) * lissage;
+      pose.remplissage += (cible.remplissage - pose.remplissage) * lissage;
+
+      redimensionner();
+      dessinerScene();
+      rafId = requestAnimationFrame(animer);
+    }
+
+    function demarrerBoucle() {
+      if (rafId !== null || !visible) return;
+      rafId = requestAnimationFrame(animer);
+    }
+
+    function arreterBoucle() {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+
+    function demanderDessin() {
+      if (!visible) return;
+      if (rafId === null) demarrerBoucle();
+    }
 
     function redimensionner() {
       const r = Math.min(window.devicePixelRatio || 1, 2);
@@ -246,7 +349,6 @@
       canvas.height = Math.max(1, Math.round(conteneur.clientHeight * r));
     }
 
-    /* ---------- Dessin de la scène (une seule image) ---------- */
     function dessinerScene() {
       const w = canvas.width, h = canvas.height, aspect = w / h;
       gl.viewport(0, 0, w, h);
@@ -258,7 +360,8 @@
       const tanY = Math.tan(fovY / 2), tanX = tanY * aspect;
       const dist = Math.max(1.02 / tanX, 0.44 / tanY) / pose.remplissage + 0.17;
       const vue = M4.multiplier(M4.perspective(fovY, aspect, 0.1, 20), M4.translation(0, 0, -dist));
-      let modele = M4.rotY(pose.ry);
+      let modele = M4.translation(0, pose.y, 0);
+      modele = M4.multiplier(modele, M4.rotY(pose.ry));
       modele = M4.multiplier(modele, M4.rotX(pose.rx));
       modele = M4.multiplier(modele, M4.rotZ(pose.rz));
 
@@ -271,7 +374,6 @@
       gl.uniform1i(U.uTexture, 0);
       gl.activeTexture(gl.TEXTURE0);
 
-      // 1. pièces opaques
       gl.disable(gl.BLEND);
       gl.depthMask(true);
       gl.uniform1i(U.uMode, 0);
@@ -284,13 +386,11 @@
         dessiner(p);
       });
 
-      // 2. écran éteint (noir, avec le reflet de la vitre)
       gl.bindTexture(gl.TEXTURE_2D, texEcran);
       gl.uniform1i(U.uMode, 2);
       gl.uniform1f(U.uEclat, 1.0);
       dessiner(ecran, ecran.uv);
 
-      // 3. décalques (symboles, textes) par-dessus
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
       gl.depthMask(false);
@@ -308,20 +408,39 @@
       gl.depthMask(true);
     }
 
-    /* On ne redessine que si c'est nécessaire (symbole chargé, taille changée),
-       au moment où le navigateur affiche la prochaine image */
-    let dessinPrevu = false;
-    function demanderDessin() {
-      if (dessinPrevu) return;
-      dessinPrevu = true;
-      requestAnimationFrame(() => {
-        dessinPrevu = false;
-        redimensionner();
-        dessinerScene();
-      });
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        const visibleNow = entries.some((entry) => entry.isIntersecting);
+        visible = visibleNow;
+        if (visibleNow) demarrerBoucle();
+        else arreterBoucle();
+      }, { threshold: 0.01 });
+      observer.observe(conteneur);
     }
-    new ResizeObserver(demanderDessin).observe(conteneur);
-    demanderDessin();
+
+    const api = {
+      onChange: null,
+      estAgrandie: () => agrandie,
+      basculer: () => definirAgrandie(!agrandie),
+      fermer: () => definirAgrandie(false),
+      setPointer: (x, y) => { pointerX = x; pointerY = y; },
+    };
+
+    conteneur.addEventListener("pointermove", (event) => {
+      const rect = conteneur.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      pointerX = x * 2;
+      pointerY = y * 2;
+    });
+    conteneur.addEventListener("pointerleave", () => {
+      pointerX = 0;
+      pointerY = 0;
+    });
+
+    definirAgrandie(false);
+    demarrerBoucle();
+    return api;
   }
 
   window.creerPSP3D = creerPSP3D;
