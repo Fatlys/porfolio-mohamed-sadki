@@ -123,27 +123,46 @@ Résultat : Copilot a changé le style des lignes de contact : fond sombre trans
 
 Accepté tel quel
 
+
+
 ## Étape 5 — Mise en page Projets
 
-date : 31 septembre
+date : 30 septembre
 
-Prompt :
-
+Prompt : Crée la section Projets. Les projets sont dans un fichier data/projects.json : charge-les avec fetch. Affiche une rangée par catégorie (Montage vidéo, Jeux vidéo, Design web) avec un titre et une icône. Dans chaque rangée, mets les vignettes des projets . À droite de la rangée, ajoute un panneau qui montre le titre, la mention et le résumé du projet survolé. Au survol, la vignette doit s'allumer avec une bordure bleue. 
 
 Outil : Copilot
 
+Résultat : Copilot a créé la section Projets avec une rangée par catégorie, les vignettes et le panneau d'aperçu qui change au survol  :
+- créé data/projects.json avec mes 5 projets ;
+- ajouté les fonctions chargerProjets() et afficherProjets() dans js/main.js ;
+- créé js/composants/carte-projet.js pour fabriquer les vignettes ;
+- créé css/composants/carte-projet.css pour leur style ;
+- ajouté le style des rangées dans css/layout.css ;
+- ajouté la liste des catégories dans js/data.js ;
+- ajouté la section dans index.html.
 
-Résultat :
+modifié : Encore une fois c'était pas parfait dés le premier prompt et j'ai du faire quelque modif avec copilot pour avoir un résultat qui corespond exactement a ce que je voulais.
 
 
-## Étape 6 — Demo reel/ Compétences
+## Étape 6 — Demo reel / Compétences
 
 date : 1 octobre
 
-Prompt :
+Prompt : Ajoute la section Demo reel avec mon modèle 3D de PSP (assets/modeles/psp-modele.js), affiché en WebGL de trois quarts, sans animation, avec l'écran éteint pour l'instant. Ajoute ensuite la section Compétences avec une carte par logiciel : le nom, le domaine, le pourcentage et une barre bleue remplie selon le niveau. After Effects, Premiere Pro, DaVinci Resolve, Photoshop et Figma à 100 %, Maya et Unity à 80 %.
+
+Outil : Copilot / claude
+
+Résultat : Copilot a affiché la PSP en 3D, fixe, avec l'écran noir, et a créé les 7 cartes de compétences avec leur barre remplie. J'ai :
+- créé js/composants/psp-3d.js pour afficher la PSP ;
+- créé css/composants/psp.css pour la taille de la zone ;
+- créé css/composants/competences.css pour les cartes et les barres ;
+- ajouté la liste des compétences (COMPETENCES) dans js/data.js ;
+- ajouté le code qui crée la PSP et les barres dans js/main.js ;
+- ajouté les deux sections et les scripts dans index.html.
+
+modifié : J'ai pas réussi a bien intégré la PsP avec copilot j'ai donc utilisé claude avec le meme prompt et finalement sa a bien marcher
 
 
-Outil : Copilot
 
 
-Résultat :
