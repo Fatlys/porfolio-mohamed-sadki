@@ -33,6 +33,9 @@ function creerCarteProjet(projet, surSelection, surOuverture) {
 
   carte.addEventListener("mouseenter", () => surSelection(projet, carte));
   carte.addEventListener("focus", () => surSelection(projet, carte));
-  carte.addEventListener("click", () => surOuverture(carte.dataset.id));
+  carte.addEventListener("click", () => {
+    console.log("ouvrir carte");
+    surOuverture(carte.dataset.id);
+  });
   return carte;
 }
