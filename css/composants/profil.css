@@ -1,4 +1,4 @@
-/* Carte profil de l'accueil */
+/* Carte profil de l'accueil (s'ouvre en grand au clic) */
 .profil {
   width: min(400px, 90vw);
   border: 1px solid var(--bordure);
@@ -7,17 +7,46 @@
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   overflow: hidden;
+  transition: width 0.6s cubic-bezier(0.3, 0.7, 0.2, 1), box-shadow var(--transition), border-color var(--transition);
 }
+.hero.ouvert .profil { width: min(600px, 90vw); border-color: var(--bleu); box-shadow: var(--lueur); }
+.profil:has(.profil-carte:hover), .profil:has(.profil-carte:focus-visible) { border-color: var(--bleu); box-shadow: var(--lueur); }
 
 .profil-carte {
-  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1rem;
+  width: 100%;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem;
   padding: 0.9rem 1rem;
+  text-align: left;
 }
+.profil-carte:focus-visible { outline: none; }
 .profil-avatar {
   width: 64px; height: 64px; object-fit: cover;
   border-radius: 8px; border: 1px solid var(--bordure);
+  transition: width 0.6s ease, height 0.6s ease;
 }
+.hero.ouvert .profil-avatar { width: 88px; height: 88px; }
 .profil-textes { display: flex; flex-direction: column; line-height: 1.3; }
-.profil-nom { font-size: 1.15rem; font-weight: 400; }
+.profil-nom { font-size: 1.15rem; }
 .profil-sous { color: #c6ccd8; font-size: var(--taille-s); }
 .profil-tags { color: var(--texte-doux); font-size: var(--taille-xs); }
+.profil-chevron { width: 1.2rem; height: 1.2rem; color: var(--texte-doux); transition: transform 0.4s ease; }
+.hero.ouvert .profil-chevron { transform: rotate(90deg); color: var(--bleu); }
+
+/* Détails : s'ouvrent en hauteur */
+.profil-details {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 0.6s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+.hero.ouvert .profil-details { grid-template-rows: 1fr; }
+.profil-details-interne { overflow: hidden; padding-inline: 1.2rem; }
+.profil-details-interne > :first-child { margin-top: 0.4rem; }
+.profil-details-interne > :last-child { margin-bottom: 1.3rem; }
+
+.profil-description { color: #d4d9e3; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem; }
+.profil-infos { display: grid; gap: 0.7rem; margin: 1.2rem 0; }
+.profil-infos dt { font-size: var(--taille-xs); color: var(--bleu); text-transform: uppercase; letter-spacing: 0.08em; }
+.profil-infos dd { margin: 0; font-size: var(--taille-s); color: #c6ccd8; }
+
+@media (prefers-reduced-motion: reduce) {
+  .profil, .profil-details { transition: none; }
+}

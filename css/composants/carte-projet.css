@@ -1,7 +1,9 @@
-/* Carte projet (vignette) */
+/* Carte projet (vignette cliquable) */
 .carte-projet {
-  display: block; width: 100%;
+  display: block; width: 100%; text-align: left;
   border-radius: var(--rayon);
+  cursor: pointer;
+  transition: transform var(--transition);
 }
 .carte-visuel {
   position: relative; aspect-ratio: 16 / 9; overflow: hidden;
@@ -21,9 +23,11 @@
 
 .carte-titre { display: block; margin-top: 0.5rem; font-size: var(--taille-s); color: var(--texte-doux); }
 
-/* Carte sélectionnée (survol souris ou sélection active) */
-.carte-projet:focus-visible { outline: none; }
+/* Carte sélectionnée (survol ou clavier) */
+.carte-projet:hover, .carte-projet:focus-visible { outline: none; transform: translateY(-2px); }
 .carte-projet:hover .carte-visuel,
+.carte-projet:focus-visible .carte-visuel,
 .carte-projet.active .carte-visuel { border-color: var(--bleu); box-shadow: var(--lueur); }
 .carte-projet:hover .carte-titre,
+.carte-projet:focus-visible .carte-titre,
 .carte-projet.active .carte-titre { color: var(--texte); }

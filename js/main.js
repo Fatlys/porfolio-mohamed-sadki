@@ -19,6 +19,28 @@ photo.alt = `${PROFIL.nom} en version low poly`;
 document.getElementById("profil-avatar").src = PROFIL.avatar;
 document.getElementById("profil-nom").textContent = PROFIL.nom;
 document.getElementById("profil-tags").textContent = PROFIL.tags;
+document.getElementById("profil-contenu").innerHTML = `
+  <p class="profil-description">${PROFIL.description}</p>
+  <dl class="profil-infos">
+    ${PROFIL.infos.map((i) => `<div><dt>${i.titre}</dt><dd>${i.valeur}</dd></div>`).join("")}
+  </dl>
+  <a class="bouton" href="#contact">${icone("courriel")} Me contacter</a>`;
+
+/* La carte s'ouvre en grand au clic et pousse le personnage */
+const hero = document.getElementById("accueil");
+const boutonProfil = document.getElementById("profil-bouton");
+const detailsProfil = document.getElementById("profil-details");
+const aideHero = document.getElementById("hero-aide-texte");
+function ouvrirProfil(ouvrir) {
+  hero.classList.toggle("ouvert", ouvrir);
+  boutonProfil.setAttribute("aria-expanded", String(ouvrir));
+  detailsProfil.inert = !ouvrir;
+  aideHero.textContent = ouvrir ? "Clique à nouveau ou Échap pour refermer" : "Clique sur la carte pour me découvrir";
+}
+boutonProfil.addEventListener("click", () => ouvrirProfil(!hero.classList.contains("ouvert")));
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && hero.classList.contains("ouvert")) { ouvrirProfil(false); boutonProfil.focus(); }
+});
 
 /* 4. Contact : liste des réseaux ; Discord copie le pseudo */
 document.getElementById("liste-contact").innerHTML = CONTACTS.map((c) => {
@@ -56,8 +78,18 @@ async function chargerProjets() {
   }
 }
 
+/* Projets chargés depuis le JSON, gardés ici pour retrouver un projet par son id */
+let projetsCharges = [];
+
+/* Ouvre la modale du projet qui a cet id dans data/projects.json */
+function ouvrirProjet(id) {
+  const projet = projetsCharges.find((p) => p.id === id);
+  if (projet) ouvrirModale(projet);
+}
+
 /* Une rangée par catégorie, avec un panneau d'aperçu à droite */
 function afficherProjets(projets) {
+  projetsCharges = projets;
   const conteneurRangees = document.getElementById("rangees-projets");
 
   CATEGORIES.forEach((categorie) => {
@@ -85,7 +117,7 @@ function afficherProjets(projets) {
     if (projetsCategorie.length === 0) {
       cartes.innerHTML = `<p class="rangee-vide">${categorie.vide || "Aucun projet pour l'instant."}</p>`;
     } else {
-      projetsCategorie.forEach((projet) => cartes.appendChild(creerCarteProjet(projet, afficherDetails)));
+      projetsCategorie.forEach((projet) => cartes.appendChild(creerCarteProjet(projet, afficherDetails, ouvrirProjet)));
       afficherDetails(projetsCategorie[0], cartes.firstElementChild);
     }
 
@@ -99,47 +131,18 @@ chargerProjets().then((projets) => {
   if (location.hash && location.hash !== "#projets") document.getElementById(location.hash.slice(1))?.scrollIntoView();
 });
 
-/* 6. Demo reel : PSP 3D animée */
-const pspScene = document.getElementById("psp-scene");
-const pspAide = document.getElementById("psp-aide");
-let psp3d = null;
-
+/* 6. Demo reel : PSP 3D animée ; au clic elle se redresse et s'agrandit.
+   La vidéo joue sur l'écran (muette, le son s'active quand la PSP est agrandie). */
+const scenePSP = document.getElementById("psp-scene");
+const aidePSP = document.querySelector("#psp-aide span:last-child");
 if (window.creerPSP3D) {
-  psp3d = window.creerPSP3D(pspScene);
-
-  function mettreAJourAidePSP() {
-    if (!psp3d) return;
-    const agrandie = psp3d.estAgrandie();
-    pspScene.setAttribute("aria-pressed", String(agrandie));
-    pspAide.textContent = agrandie
-      ? "Clique à nouveau ou Échap pour revenir"
-      : "Clique sur la PSP pour regarder";
-  }
-
-  if (psp3d) {
-    psp3d.onChange = mettreAJourAidePSP;
-    pspScene.addEventListener("click", () => psp3d.basculer());
-    pspScene.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " " || event.code === "Space") {
-        event.preventDefault();
-        psp3d.basculer();
-      }
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && psp3d.estAgrandie()) {
-        event.preventDefault();
-        psp3d.fermer();
-      }
-    });
-    pspScene.addEventListener("pointermove", (event) => {
-      const rect = pspScene.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      psp3d.setPointer(x * 2, y * 2);
-    });
-    pspScene.addEventListener("pointerleave", () => psp3d.setPointer(0, 0));
-    mettreAJourAidePSP();
-  }
+  creerPSP3D(scenePSP, {
+    video: "assets/videos/Demo_reel.mov",
+    surChangement: (agrandie) => {
+      aidePSP.textContent = agrandie ? "Clique à nouveau ou Échap pour revenir" : "Clique sur la PSP pour regarder";
+      if (agrandie) setTimeout(() => scenePSP.scrollIntoView({ behavior: "smooth", block: "center" }), 350);
+    },
+  });
 }
 
 /* 7. Compétences : une barre par logiciel */

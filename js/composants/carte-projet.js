@@ -20,17 +20,19 @@ function creerVisuelProjet(projet) {
     </div>`;
 }
 
-/* Carte : au survol (ou au clavier), on affiche l'aperçu du projet */
-function creerCarteProjet(projet, surSelection) {
-  const carte = document.createElement("article");
+/* Carte : au survol (ou au clavier), on affiche l'aperçu du projet ;
+   au clic, on ouvre la modale du projet grâce à son id (data-id) */
+function creerCarteProjet(projet, surSelection, surOuverture) {
+  const carte = document.createElement("button");
+  carte.type = "button";
   carte.className = "carte-projet";
-  carte.tabIndex = 0;
   carte.dataset.id = projet.id;
   carte.innerHTML = `
     ${creerVisuelProjet(projet)}
-    <h4 class="carte-titre">${projet.titre}</h4>`;
+    <span class="carte-titre">${projet.titre}</span>`;
 
   carte.addEventListener("mouseenter", () => surSelection(projet, carte));
   carte.addEventListener("focus", () => surSelection(projet, carte));
+  carte.addEventListener("click", () => surOuverture(carte.dataset.id));
   return carte;
 }

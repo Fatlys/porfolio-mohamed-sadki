@@ -18,6 +18,23 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
   column-gap: 0;
 }
 .hero-gauche { display: grid; justify-items: center; gap: var(--esp-2); }
+.hero-aide { justify-content: center; margin: 0; }
+
+/* Petit texte d'aide avec icône (accueil, projets) */
+.aide-touches { display: flex; justify-content: flex-end; gap: var(--esp-1); align-items: center; color: var(--texte-doux); font-size: var(--taille-xs); margin-top: var(--esp-2); }
+.aide-touches .icone { width: 1.3em; height: 1.3em; color: var(--bleu); }
+
+/* Bouton (carte profil, modale) */
+.bouton {
+  display: inline-flex; align-items: center; gap: var(--esp-1);
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--surface);
+  transition: box-shadow var(--transition), background var(--transition);
+}
+.bouton:hover, .bouton:focus-visible { box-shadow: var(--lueur); background: var(--surface-survol); outline: none; }
+.bouton .icone { width: 1.3em; height: 1.3em; color: var(--bleu); }
 
 /* Scène : le personnage debout sur le socle */
 .hero-scene {
@@ -26,7 +43,10 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
   height: min(74vh, 660px);
   aspect-ratio: 420 / 680; /* proportions fixes : les pieds restent calés sur le socle */
   margin-left: -2rem; /* rapproche le personnage de la carte */
+  transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.2, 1);
 }
+/* Carte ouverte : le personnage se décale (la carte s'élargit et le pousse) */
+.hero.ouvert .hero-scene { transform: scale(0.96); }
 .hero-perso {
   position: absolute; left: 50%; bottom: 10.5%; z-index: 2;
   height: 84%; width: auto; max-width: none;
@@ -96,6 +116,7 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; justify-items: center; padding-block: var(--esp-3); height: auto; }
   .hero-scene { grid-row: 1; height: min(58vh, 500px); margin-left: 0; }
+  .hero.ouvert .hero-scene { transform: none; }
   .lien-contact { grid-template-columns: auto 5.5rem 1fr auto; }
   .rangee { grid-template-columns: 1fr; }
   .rangee-cartes { grid-template-columns: repeat(2, 1fr); }

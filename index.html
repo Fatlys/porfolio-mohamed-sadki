@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mohamed Ali Sadki — Portfolio</title>
-  <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="Portfolio de Mohamed Ali Sadki : montage vidéo, design graphique, jeux vidéo et 3D.">
 
   <link rel="stylesheet" href="css/variables.css">
@@ -13,6 +12,7 @@
   <link rel="stylesheet" href="css/composants/navigation.css">
   <link rel="stylesheet" href="css/composants/profil.css">
   <link rel="stylesheet" href="css/composants/carte-projet.css">
+  <link rel="stylesheet" href="css/composants/modale.css">
   <link rel="stylesheet" href="css/composants/psp.css">
   <link rel="stylesheet" href="css/composants/competences.css">
 </head>
@@ -43,18 +43,23 @@
     <!-- PAGE 1 : Accueil (une seule vue, pas de défilement) -->
     <div class="page page-fixe" id="page-accueil">
       <!-- Carte profil à gauche, moi sur un socle à droite -->
-      <section id="accueil" class="hero" aria-labelledby="profil-nom">
+      <section id="accueil" class="hero" aria-label="Accueil">
         <div class="hero-gauche">
           <div class="profil" id="profil">
-            <div class="profil-carte">
+            <button class="profil-carte" id="profil-bouton" type="button" aria-expanded="false" aria-controls="profil-details">
               <img class="profil-avatar" id="profil-avatar" src="" alt="">
               <span class="profil-textes">
-                <h1 class="profil-nom" id="profil-nom"></h1>
+                <span class="profil-nom" id="profil-nom"></span>
                 <span class="profil-sous">Portfolio</span>
                 <span class="profil-tags" id="profil-tags"></span>
               </span>
+              <span class="profil-chevron" data-icone="chevron"></span>
+            </button>
+            <div class="profil-details" id="profil-details" inert>
+              <div class="profil-details-interne" id="profil-contenu"></div>
             </div>
           </div>
+          <p class="aide-touches hero-aide"><span data-icone="confirmer"></span><span id="hero-aide-texte">Clique sur la carte pour me découvrir</span></p>
         </div>
 
         <div class="hero-scene">
@@ -83,10 +88,11 @@
           <span data-icone="dossier"></span>
           <div>
             <h2 id="titre-projets">Projets</h2>
-            <p>Survole un projet pour voir l'aperçu.</p>
+            <p>Survole un projet pour l'aperçu, clique pour les détails.</p>
           </div>
         </div>
         <div id="rangees-projets"></div>
+        <p class="aide-touches"><span data-icone="confirmer"></span>Clic ou Entrée pour ouvrir</p>
       </section>
 
       <!-- Demo reel : PSP 3D -->
@@ -98,8 +104,9 @@
             <p>Un aperçu de mon travail, sur l'écran de la PSP.</p>
           </div>
         </div>
-        <div class="psp-scene" id="psp-scene" role="button" tabindex="0" aria-label="PSP en 3D" aria-pressed="false"></div>
-        <p class="psp-indication" id="psp-aide" aria-live="polite">Clique sur la PSP pour regarder</p>
+        <div class="psp-scene" id="psp-scene" role="button" tabindex="0" aria-pressed="false"
+             aria-label="PSP en 3D. Activer pour l'agrandir."></div>
+        <p class="aide-touches aide-psp" id="psp-aide"><span data-icone="confirmer"></span><span>Clique sur la PSP pour regarder</span></p>
       </section>
 
       <!-- Compétences -->
@@ -132,11 +139,20 @@
   </main>
 
   <!-- Scripts (l'ordre compte) -->
+  <!-- Modale de projet -->
+  <dialog class="modale" id="modale" aria-labelledby="modale-titre">
+    <button class="modale-fermer" id="modale-fermer" type="button">
+      <span data-icone="fermer"></span><span class="visuellement-cache">Fermer</span>
+    </button>
+    <div id="modale-corps"></div>
+  </dialog>
+
   <script src="assets/modeles/psp-modele.js"></script>
   <script src="js/composants/psp-3d.js"></script>
   <script src="js/data.js"></script>
   <script src="js/composants/vagues.js"></script>
   <script src="js/composants/carte-projet.js"></script>
+  <script src="js/composants/modale.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

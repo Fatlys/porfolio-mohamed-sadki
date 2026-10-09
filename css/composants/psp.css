@@ -1,40 +1,30 @@
-/* PSP 3D de la section Demo reel */
+/* PSP 3D de la section Showreel */
 .psp-scene {
+  position: relative;
   width: 100%;
   max-width: 980px;
   height: clamp(260px, 42vw, 440px);
   margin-inline: auto;
-  position: relative;
-  display: block;
-  overflow: visible;
-  transition: height 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s ease;
   cursor: pointer;
-  border-radius: 1.8rem;
-  outline: none;
+  border-radius: var(--rayon);
+  transition: height 0.5s ease, max-width 0.5s ease;
+  -webkit-tap-highlight-color: transparent;
 }
+.psp-scene:focus-visible { outline: 2px solid var(--bleu); outline-offset: 6px; }
 
+/* Agrandie : la PSP se redresse (géré en JS) et prend plus de place */
 .psp-scene.agrandie {
-  height: clamp(420px, 58vw, 620px);
-  transform: scale(1.04);
-}
-
-.psp-scene:focus-visible {
-  box-shadow: none;
+  max-width: 1180px;
+  height: clamp(300px, 56vw, min(78vh, 640px));
+  cursor: zoom-out;
 }
 
 .psp-canvas { display: block; width: 100%; height: 100%; }
-
-.psp-indication {
-  margin: 0.9rem auto 0;
-  text-align: center;
-  color: var(--texte-doux);
-  font-size: var(--taille-s);
-  letter-spacing: 0.02em;
-  min-height: 1.4em;
-}
 
 .psp-sans-webgl::after {
   content: "La 3D n'est pas disponible sur ce navigateur.";
   display: grid; place-items: center; height: 100%;
   color: var(--texte-doux); font-size: var(--taille-s);
 }
+
+.aide-psp { justify-content: center; }

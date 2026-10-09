@@ -1,10 +1,14 @@
 /* =========================================================
    PSP 3D — rendu WebGL sans bibliothèque
    Nécessite assets/modeles/psp-modele.js (window.PSP_MODELE) chargé avant.
-   La PSP est affichée de trois quarts, sans mouvement, écran éteint.
 
    Utilisation :
-   creerPSP3D(document.getElementById('psp-scene'));
+   const psp = creerPSP3D(document.getElementById('psp-scene'), {
+     video: 'assets/videos/showreel.mp4',   // facultatif
+     images: ['assets/images/a.jpg', ...],  // diaporama si pas de vidéo
+     titre: 'Demo reel',
+     surChangement: (agrandie) => {}        // appelé quand on clique
+   });
    ========================================================= */
 
 (function () {
@@ -121,8 +125,8 @@
   function creerPSP3D(conteneur, options) {
     const donnees = window.PSP_MODELE;
     if (!donnees) { console.error("psp-modele.js doit être chargé avant psp-3d.js"); return null; }
-    const opts = Object.assign({ couleurAccent: [0.23, 0.55, 1.0] }, options || {});
-    const motionReduced = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false;
+    const opts = Object.assign({ video: null, images: [], titre: "", couleurAccent: [0.23, 0.55, 1.0], surChangement: null }, options || {});
+    const mouvementReduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     /* ---------- Contexte WebGL ---------- */
     const canvas = document.createElement("canvas");
@@ -131,11 +135,6 @@
     const gl = canvas.getContext("webgl", { antialias: true, alpha: true, premultipliedAlpha: false });
     if (!gl) { conteneur.classList.add("psp-sans-webgl"); return null; }
     gl.getExtension("OES_standard_derivatives");
-
-    conteneur.setAttribute("role", "button");
-    conteneur.setAttribute("tabindex", "0");
-    conteneur.setAttribute("aria-label", "PSP en 3D");
-    conteneur.setAttribute("aria-pressed", "false");
 
     function compiler(type, source) {
       const s = gl.createShader(type);
@@ -191,7 +190,6 @@
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
         gl.generateMipmap(gl.TEXTURE_2D);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-        if (visible) demanderDessin();
       };
       img.src = url;
     });
@@ -225,6 +223,58 @@
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
 
+    /* ---------- Contenu de l'écran : vidéo, sinon diaporama ---------- */
+    let video = null;
+    const toile = document.createElement("canvas");
+    toile.width = 640; toile.height = 368;
+    const ctx = toile.getContext("2d");
+    const images = opts.images.map((src) => { const i = new Image(); i.src = src; return i; });
+
+    if (opts.video) {
+      video = document.createElement("video");
+      video.src = opts.video;
+      video.muted = true; video.loop = true; video.playsInline = true; video.crossOrigin = "anonymous";
+      video.play().catch(() => {});
+      video.addEventListener("error", () => { video = null; });
+    }
+
+    function dessinerDiaporama(t) {
+      const w = toile.width, h = toile.height, duree = 4;
+      ctx.fillStyle = "#000"; ctx.fillRect(0, 0, w, h);
+      const prets = images.filter((i) => i.complete && i.naturalWidth);
+      if (prets.length) {
+        const n = Math.floor(t / duree), p = (t % duree) / duree;
+        const dessiner = (img, alpha, prog) => {
+          const z = 1.04 + prog * 0.08;
+          const r = Math.max(w / img.naturalWidth, h / img.naturalHeight) * z;
+          const iw = img.naturalWidth * r, ih = img.naturalHeight * r;
+          ctx.globalAlpha = alpha;
+          ctx.drawImage(img, (w - iw) / 2 - prog * 12, (h - ih) / 2, iw, ih);
+        };
+        dessiner(prets[(n + prets.length - 1) % prets.length], 1, 1);
+        dessiner(prets[n % prets.length], Math.min(1, p * 3), p);
+        ctx.globalAlpha = 1;
+        // barre de lecture façon lecteur vidéo
+        const g = ctx.createLinearGradient(0, h - 60, 0, h);
+        g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,0.75)");
+        ctx.fillStyle = g; ctx.fillRect(0, h - 60, w, 60);
+        ctx.fillStyle = "rgba(255,255,255,0.25)"; ctx.fillRect(24, h - 18, w - 48, 3);
+        ctx.fillStyle = "#3a8dff"; ctx.fillRect(24, h - 18, (w - 48) * (((n % prets.length) + p) / prets.length), 3);
+        ctx.fillStyle = "#fff"; ctx.font = "500 18px Segoe UI, system-ui, sans-serif";
+        ctx.fillText(opts.titre, 24, h - 30);
+      }
+    }
+
+    function majEcran(t) {
+      let source = toile;
+      if (video && video.readyState >= 2) source = video;
+      else dessinerDiaporama(t);
+      gl.bindTexture(gl.TEXTURE_2D, texEcran);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+      try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source); }
+      catch (e) { video = null; } // vidéo bloquée (ex. ouverte sans serveur) : on garde le diaporama
+    }
+
     /* ---------- Dessin d'une pièce ---------- */
     function lier(attr, buffer, taille, type, normalise, pas) {
       if (attr < 0) return;
@@ -234,122 +284,77 @@
     }
     function dessiner(p, uv) {
       lier(A.pos, p.pos, 3, gl.UNSIGNED_SHORT, true);
-      lier(A.nor, p.nor, 3, gl.BYTE, true, 4);
+      lier(A.nor, p.nor, 3, gl.BYTE, true, 4); // normales rangées par 4 octets
       if (uv) lier(A.uv, uv, 2, gl.UNSIGNED_SHORT, true);
       else if (A.uv >= 0) { gl.disableVertexAttribArray(A.uv); gl.vertexAttrib2f(A.uv, 0, 0); }
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, p.idx);
       gl.drawElements(gl.TRIANGLES, p.ni, gl.UNSIGNED_SHORT, 0);
     }
 
-    const pose = { rx: 0.32, ry: -0.35, rz: 0, y: 0, remplissage: 0.78 };
-    const cible = { rx: 0.32, ry: -0.35, rz: 0, y: 0, remplissage: 0.78 };
-    let pointerX = 0;
-    let pointerY = 0;
+    /* ---------- État et animation ---------- */
     let agrandie = false;
-    let visible = true;
-    let rafId = null;
-    let dernierTemps = 0;
+    const souris = { x: 0, y: 0 };
+    const etat = { rx: 0.35, ry: 0, rz: 0, y: 0, remplissage: 0.72 };
+    window.addEventListener("pointermove", (e) => {
+      souris.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      souris.y = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
 
-    function majEtat() {
+    function basculer(valeur) {
+      agrandie = typeof valeur === "boolean" ? valeur : !agrandie;
       conteneur.classList.toggle("agrandie", agrandie);
       conteneur.setAttribute("aria-pressed", String(agrandie));
-      if (typeof api.onChange === "function") api.onChange();
-    }
-
-    function definirAgrandie(bas) {
-      agrandie = Boolean(bas);
-      if (agrandie) {
-        cible.rx = 0;
-        cible.ry = 0;
-        cible.rz = 0;
-        cible.y = 0;
-        cible.remplissage = 1.05;
-      } else {
-        cible.rx = 0.32;
-        cible.ry = -0.35;
-        cible.rz = 0;
-        cible.y = 0;
-        cible.remplissage = 0.78;
+      if (video) {
+        video.muted = !agrandie;
+        if (agrandie) video.play().catch(() => {});
       }
-      majEtat();
+      if (opts.surChangement) opts.surChangement(agrandie);
     }
+    conteneur.addEventListener("click", () => basculer());
+    conteneur.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); basculer(); }
+      if (e.key === "Escape" && agrandie) basculer(false);
+    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && agrandie) basculer(false); });
 
-    function positionnerSouris(x, y) {
-      pointerX = Number.isFinite(x) ? x : 0;
-      pointerY = Number.isFinite(y) ? y : 0;
-      if (!agrandie) {
-        cible.ry = Math.sin(dernierTemps * 0.001 * 0.9) * 0.42 + pointerX * 0.22;
-        cible.rx = 0.18 + Math.cos(dernierTemps * 0.001 * 1.15) * 0.08 - pointerY * 0.14;
-        cible.rz = pointerX * 0.08;
-      }
-    }
-
-    function animer(ts) {
-      if (!visible) {
-        rafId = null;
-        return;
-      }
-
-      const dt = Math.min(0.05, dernierTemps ? (ts - dernierTemps) / 1000 : 1 / 60);
-      dernierTemps = ts;
-      const t = ts * 0.001;
-
-      if (agrandie) {
-        cible.rx = 0;
-        cible.ry = 0;
-        cible.rz = 0;
-        cible.y = 0;
-        cible.remplissage = 1.05;
-      } else if (motionReduced) {
-        cible.rx = 0.12 - pointerY * 0.08;
-        cible.ry = pointerX * 0.16;
-        cible.rz = pointerX * 0.05;
-        cible.y = 0;
-        cible.remplissage = 0.78;
-      } else {
-        cible.rx = 0.16 + Math.cos(t * 0.55) * 0.05 - pointerY * 0.08;
-        cible.ry = Math.sin(t * 0.42) * 0.24 + pointerX * 0.16;
-        cible.rz = pointerX * 0.05;
-        cible.y = Math.sin(t * 0.9) * 0.05;
-        cible.remplissage = 0.78;
-      }
-
-      const lissage = Math.min(1, dt * 2.5);
-      pose.rx += (cible.rx - pose.rx) * lissage;
-      pose.ry += (cible.ry - pose.ry) * lissage;
-      pose.rz += (cible.rz - pose.rz) * lissage;
-      pose.y += (cible.y - pose.y) * lissage;
-      pose.remplissage += (cible.remplissage - pose.remplissage) * lissage;
-
-      redimensionner();
-      dessinerScene();
-      rafId = requestAnimationFrame(animer);
-    }
-
-    function demarrerBoucle() {
-      if (rafId !== null || !visible) return;
-      rafId = requestAnimationFrame(animer);
-    }
-
-    function arreterBoucle() {
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-    }
-
-    function demanderDessin() {
-      if (!visible) return;
-      if (rafId === null) demarrerBoucle();
-    }
-
+    /* Taille du canvas : vérifiée juste avant chaque dessin.
+       (Un ResizeObserver vide le canvas après le dessin : la PSP
+       disparaissait pendant l'agrandissement.) */
     function redimensionner() {
       const r = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.round(conteneur.clientWidth * r));
-      canvas.height = Math.max(1, Math.round(conteneur.clientHeight * r));
+      const w = Math.max(1, Math.round(conteneur.clientWidth * r));
+      const h = Math.max(1, Math.round(conteneur.clientHeight * r));
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
     }
 
-    function dessinerScene() {
+    let visible = true;
+    new IntersectionObserver((e) => { visible = e[0].isIntersecting; }).observe(conteneur);
+
+    const debut = performance.now();
+    let avant = debut;
+    function image() {
+      requestAnimationFrame(image);
+      const maintenant = performance.now();
+      const dt = Math.min((maintenant - avant) / 1000, 0.1);
+      avant = maintenant;
+      if (!visible) return;
+      const t = (maintenant - debut) / 1000;
+      const auto = !mouvementReduit;
+
+      // cibles : en mouvement (comme la manette) ou redressée face à l'écran
+      const cible = agrandie
+        ? { rx: 0, ry: 0, rz: 0, y: 0, remplissage: 0.94 }
+        : {
+            rx: 0.38 + souris.y * 0.12,
+            ry: (auto ? Math.sin(t * 0.35) * 0.45 : 0) + souris.x * 0.35,
+            rz: auto ? Math.sin(t * 0.5) * 0.04 : 0,
+            y: auto ? Math.sin(t * 0.8) * 0.03 : 0,
+            remplissage: 0.72,
+          };
+      const k = 1 - Math.exp(-dt * (agrandie ? 5.5 : 3)); // lissage indépendant des FPS
+      for (const cle in cible) etat[cle] += (cible[cle] - etat[cle]) * k;
+
+      redimensionner();
       const w = canvas.width, h = canvas.height, aspect = w / h;
       gl.viewport(0, 0, w, h);
       gl.clearColor(0, 0, 0, 0);
@@ -358,12 +363,12 @@
 
       const fovY = 0.5;
       const tanY = Math.tan(fovY / 2), tanX = tanY * aspect;
-      const dist = Math.max(1.02 / tanX, 0.44 / tanY) / pose.remplissage + 0.17;
+      const dist = Math.max(1.02 / tanX, 0.44 / tanY) / etat.remplissage + 0.17;
       const vue = M4.multiplier(M4.perspective(fovY, aspect, 0.1, 20), M4.translation(0, 0, -dist));
-      let modele = M4.translation(0, pose.y, 0);
-      modele = M4.multiplier(modele, M4.rotY(pose.ry));
-      modele = M4.multiplier(modele, M4.rotX(pose.rx));
-      modele = M4.multiplier(modele, M4.rotZ(pose.rz));
+      let modele = M4.translation(0, etat.y, 0);
+      modele = M4.multiplier(modele, M4.rotY(etat.ry));
+      modele = M4.multiplier(modele, M4.rotX(etat.rx));
+      modele = M4.multiplier(modele, M4.rotZ(etat.rz));
 
       gl.uniformMatrix4fv(U.uVue, false, vue);
       gl.uniformMatrix4fv(U.uModele, false, modele);
@@ -374,6 +379,7 @@
       gl.uniform1i(U.uTexture, 0);
       gl.activeTexture(gl.TEXTURE0);
 
+      // 1. pièces opaques
       gl.disable(gl.BLEND);
       gl.depthMask(true);
       gl.uniform1i(U.uMode, 0);
@@ -386,11 +392,14 @@
         dessiner(p);
       });
 
+      // 2. écran
+      majEcran(t);
       gl.bindTexture(gl.TEXTURE_2D, texEcran);
       gl.uniform1i(U.uMode, 2);
       gl.uniform1f(U.uEclat, 1.0);
       dessiner(ecran, ecran.uv);
 
+      // 3. décalques (symboles, textes) par-dessus
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
       gl.depthMask(false);
@@ -407,40 +416,9 @@
       gl.disable(gl.POLYGON_OFFSET_FILL);
       gl.depthMask(true);
     }
+    image();
 
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        const visibleNow = entries.some((entry) => entry.isIntersecting);
-        visible = visibleNow;
-        if (visibleNow) demarrerBoucle();
-        else arreterBoucle();
-      }, { threshold: 0.01 });
-      observer.observe(conteneur);
-    }
-
-    const api = {
-      onChange: null,
-      estAgrandie: () => agrandie,
-      basculer: () => definirAgrandie(!agrandie),
-      fermer: () => definirAgrandie(false),
-      setPointer: (x, y) => { pointerX = x; pointerY = y; },
-    };
-
-    conteneur.addEventListener("pointermove", (event) => {
-      const rect = conteneur.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      pointerX = x * 2;
-      pointerY = y * 2;
-    });
-    conteneur.addEventListener("pointerleave", () => {
-      pointerX = 0;
-      pointerY = 0;
-    });
-
-    definirAgrandie(false);
-    demarrerBoucle();
-    return api;
+    return { basculer, get agrandie() { return agrandie; } };
   }
 
   window.creerPSP3D = creerPSP3D;

@@ -37,6 +37,12 @@ const PROFIL = {
   photo: "assets/images/perso-low-poly.png",
   avatar: "assets/images/moi.png",
   tags: "Design · Vidéo · 3D",
+  description: "Étudiant en multimédia, je tourne et monte des vidéos, je fais du design graphique et je crée des jeux vidéo et des scènes 3D. Je cherche un stage pour évoluer vers un poste polyvalent en montage vidéo et design graphique.",
+  infos: [
+    { titre: "Spécialités", valeur: "Montage vidéo, design graphique, jeux vidéo et 3D" },
+    { titre: "Logiciels", valeur: "After Effects, Premiere Pro, DaVinci Resolve, Photoshop, Figma, Maya, Unity" },
+    { titre: "Recherche", valeur: "Un stage en montage vidéo et design graphique" },
+  ],
 };
 
 /* Contacts (vérifie tes liens et ton pseudo Discord) */
