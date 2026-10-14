@@ -163,6 +163,76 @@ Résultat : Copilot a affiché la PSP en 3D, fixe, avec l'écran noir, et a cré
 
 modifié : J'ai pas réussi a bien intégré la PsP avec copilot j'ai donc utilisé claude avec le meme prompt et finalement sa a bien marcher
 
+## Étape 7 — Demo-reel dans la PsP
+
+date : 3 octobre
+
+Prompt : Fais jouer mon demo reel (assets/videos/demo-reel.mp4) directement dans l’écran de la PSP 3D. La vidéo doit s’afficher seulement sur l’écran, pas sur le reste de la console. Au clic sur la PSP, la vidéo démarre ou se met en pause. Ajoute une petite lueur bleue autour de l’écran quand la vidéo joue. Garde la PSP fixe de trois quarts comme avant.
+
+Outil : Copilot
+
+Résultat : Copilot a mis la vidéo du demo reel sur l’écran de la PSP. Elle démarre et se met en pause au clic, avec une lueur bleue quand elle joue :
+
+ajouté la vidéo dans assets/videos/demo-reel.mp4 ;
+modifié js/composants/psp-3d.js pour afficher la vidéo sur l’écran ;
+ajouté le style de la lueur dans css/composants/psp.css ;
+ajouté le code du clic lecture/pause dans js/main.js.
+
+modifié : La vidéo était un peu étirée et dépassait de l’écran de la PSP
+
+Prompt : Ajuste la vidéo pour qu’elle rentre exactement dans l’écran de la PSP, sans être étirée ni dépasser des bords.
+
+Outil : Copilot
+
+Résultat : Copilot a recadré la vidéo pour qu’elle rentre bien dans l’écran. Accepté tel quel.
+
+## Étape 8 — Projects Pop Up
+
+date : 3 octobre
+
+Prompt : Quand on clique sur une vignette dans la section Projets, ouvre une fenêtre pop-up au centre de l’écran avec le fond flouté derrière. Dans la pop-up, affiche la vidéo ou l’image du projet, le titre, la mention, la description complète et les outils utilisés. Ajoute un bouton X pour fermer, et la pop-up doit aussi se fermer avec la touche Échap ou en cliquant à côté. Garde le style du site : fond sombre transparent, fine bordure, coins arrondis et couleurs de variables.css.
+
+Outil : Copilot
+
+Résultat : Copilot a créé la pop-up qui s’ouvre au clic sur un projet, avec le fond flouté et les infos du projet :
+
+créé js/composants/popup-projet.js pour ouvrir et remplir la pop-up ;
+créé css/composants/popup-projet.css pour son style ;
+ajouté la description et les outils de chaque projet dans data/projects.json ;
+ajouté la structure de la pop-up dans index.html ;
+ajouté le clic sur les vignettes dans js/composants/carte-projet.js.
+
+modifié : La pop-up apparaissait d’un coup, c’était pas fluide
+
+Prompt : Ajoute une petite animation à l’ouverture et à la fermeture de la pop-up : elle doit apparaître en fondu en grandissant un peu, comme dans le menu de la PS3.
+
+Outil : Copilot
+
+Résultat : Copilot a ajouté une animation de fondu et de zoom léger à l’ouverture et à la fermeture. Accepté tel quel.
+
+## Étape 9 — Acceuil Carousel
+
+date : 4 octobre
+
+Prompt : Sur la page d’accueil, sous la carte profil et le personnage, ajoute un carrousel qui fait défiler mes projets en vedette avec leurs vignettes. Il doit défiler tout seul toutes les quelques secondes, avec des flèches à gauche et à droite et des petits points en dessous pour savoir où on est. La vignette du centre doit être plus grande avec une bordure bleue. Au clic sur une vignette, ouvre la pop-up du projet. Utilise les projets de data/projects.json.
+
+Outil : Copilot
+
+Résultat : Copilot a créé le carrousel sur l’accueil qui défile tout seul, avec les flèches, les points et la vignette du centre mise en avant :
+
+créé js/composants/carrousel.js pour le défilement ;
+créé css/composants/carrousel.css pour son style ;
+ajouté le carrousel dans la page d’accueil de index.html ;
+ajouté le code qui remplit le carrousel et ouvre la pop-up dans js/main.js.
+
+modifié : Le carrousel prenait trop de place et poussait la carte et le personnage vers le haut
+
+Prompt : Rends le carrousel plus petit et plus compact pour que la carte profil et le personnage restent bien centrés dans l’écran.
+
+Outil : Copilot
+
+Résultat : Copilot a réduit la taille du carrousel. Le tout rentre bien dans l’écran. Accepté tel quel.
+
 
 
 
