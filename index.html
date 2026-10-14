@@ -6,6 +6,11 @@
   <title>Mohamed Ali Sadki — Portfolio</title>
   <meta name="description" content="Portfolio de Mohamed Ali Sadki : montage vidéo, design graphique, jeux vidéo et 3D.">
 
+  <!-- Police Libre Franklin (Google Fonts), proche de Franklin Gothic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -63,15 +68,21 @@
         </div>
 
         <div class="hero-scene">
-          <svg class="socle-svg" viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs><filter id="flou-socle" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter><filter id="flou-ombre" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5"/></filter></defs>
-            <ellipse class="socle-lueur" cx="180" cy="86" rx="175" ry="30" filter="url(#flou-socle)"/>
-            <g stroke="rgba(120,170,255,0.18)" stroke-width="0.6"><polygon points="338.8,50.1 314.8,64.3 314.8,94.3 338.8,80.1" fill="rgb(27, 37, 64)"/><polygon points="314.8,64.3 264.1,74.9 264.1,104.9 314.8,94.3" fill="rgb(25, 34, 60)"/><polygon points="264.1,74.9 196.7,79.8 196.7,109.8 264.1,104.9" fill="rgb(21, 29, 52)"/><polygon points="196.7,79.8 126.0,78.0 126.0,108.0 196.7,109.8" fill="rgb(17, 24, 43)"/><polygon points="126.0,78.0 66.0,69.9 66.0,99.9 126.0,108.0" fill="rgb(14, 19, 35)"/><polygon points="66.0,69.9 28.6,57.0 28.6,87.0 66.0,99.9" fill="rgb(11, 15, 28)"/><polygon points="28.6,57.0 21.2,41.9 21.2,71.9 28.6,87.0" fill="rgb(10, 14, 26)"/><polygon points="331.4,35.0 338.8,50.1 338.8,80.1 331.4,65.0" fill="rgb(27, 37, 65)"/></g>
-            <g stroke="rgba(140,185,255,0.22)" stroke-width="0.6"><polygon points="180,46 338.8,50.1 314.8,64.3" fill="rgb(23, 32, 51)"/><polygon points="180,46 314.8,64.3 264.1,74.9" fill="rgb(22, 30, 48)"/><polygon points="180,46 264.1,74.9 196.7,79.8" fill="rgb(23, 31, 50)"/><polygon points="180,46 196.7,79.8 126.0,78.0" fill="rgb(26, 35, 56)"/><polygon points="180,46 126.0,78.0 66.0,69.9" fill="rgb(31, 42, 66)"/><polygon points="180,46 66.0,69.9 28.6,57.0" fill="rgb(37, 49, 78)"/><polygon points="180,46 28.6,57.0 21.2,41.9" fill="rgb(42, 56, 89)"/><polygon points="180,46 21.2,41.9 45.2,27.7" fill="rgb(46, 61, 96)"/><polygon points="180,46 45.2,27.7 95.9,17.1" fill="rgb(47, 63, 99)"/><polygon points="180,46 95.9,17.1 163.3,12.2" fill="rgb(46, 62, 97)"/><polygon points="180,46 163.3,12.2 234.0,14.0" fill="rgb(43, 58, 91)"/><polygon points="180,46 234.0,14.0 294.0,22.1" fill="rgb(38, 51, 81)"/><polygon points="180,46 294.0,22.1 331.4,35.0" fill="rgb(32, 44, 69)"/><polygon points="180,46 331.4,35.0 338.8,50.1" fill="rgb(27, 37, 58)"/></g>
-            <polyline class="socle-bord" points="338.8,50.1 314.8,64.3 264.1,74.9 196.7,79.8 126.0,78.0 66.0,69.9 28.6,57.0 21.2,41.9 45.2,27.7 95.9,17.1 163.3,12.2 234.0,14.0 294.0,22.1 331.4,35.0 338.8,50.1" fill="none"/>
+          <svg class="socle-svg" viewBox="0 0 470 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <filter id="flou-socle" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+              <filter id="flou-ombre" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5"/></filter>
+              <!-- courbe suivie par le mot PORTFOLIO sur la tranche du socle -->
+              <path id="courbe-socle" d="M 20 79 A 215 34 0 0 0 450 79"/>
+            </defs>
+            <ellipse class="socle-lueur" cx="235" cy="106" rx="230" ry="24" filter="url(#flou-socle)"/>
+            <g stroke="rgba(120,170,255,0.18)" stroke-width="0.6"><polygon points="449.3,48.7 433.5,59.1 433.5,99.1 449.3,88.7" fill="rgb(27, 37, 65)"/><polygon points="433.5,59.1 398.3,68.1 398.3,108.1 433.5,99.1" fill="rgb(26, 36, 63)"/><polygon points="398.3,68.1 347.1,75.0 347.1,115.0 398.3,108.1" fill="rgb(24, 33, 58)"/><polygon points="347.1,75.0 284.9,79.1 284.9,119.1 347.1,115.0" fill="rgb(22, 30, 53)"/><polygon points="284.9,79.1 217.8,79.9 217.8,119.9 284.9,119.1" fill="rgb(19, 26, 47)"/><polygon points="217.8,79.9 152.4,77.4 152.4,117.4 217.8,119.9" fill="rgb(16, 23, 41)"/><polygon points="152.4,77.4 95.1,71.8 95.1,111.8 152.4,117.4" fill="rgb(14, 19, 35)"/><polygon points="95.1,71.8 51.5,63.7 51.5,103.7 95.1,111.8" fill="rgb(12, 16, 30)"/><polygon points="51.5,63.7 25.9,53.9 25.9,93.9 51.5,103.7" fill="rgb(10, 14, 27)"/><polygon points="25.9,53.9 20.7,43.3 20.7,83.3 25.9,93.9" fill="rgb(10, 14, 26)"/><polygon points="444.1,38.1 449.3,48.7 449.3,88.7 444.1,78.1" fill="rgb(27, 37, 65)"/></g>
+            <text class="socle-texte"><textPath href="#courbe-socle" startOffset="50%" text-anchor="middle">PORTFOLIO</textPath></text>
+            <g stroke="rgba(140,185,255,0.22)" stroke-width="0.6"><polygon points="235,46 449.3,48.7 433.5,59.1" fill="rgb(24, 33, 52)"/><polygon points="235,46 433.5,59.1 398.3,68.1" fill="rgb(22, 30, 49)"/><polygon points="235,46 398.3,68.1 347.1,75.0" fill="rgb(22, 30, 48)"/><polygon points="235,46 347.1,75.0 284.9,79.1" fill="rgb(22, 30, 49)"/><polygon points="235,46 284.9,79.1 217.8,79.9" fill="rgb(24, 33, 53)"/><polygon points="235,46 217.8,79.9 152.4,77.4" fill="rgb(27, 37, 59)"/><polygon points="235,46 152.4,77.4 95.1,71.8" fill="rgb(31, 42, 66)"/><polygon points="235,46 95.1,71.8 51.5,63.7" fill="rgb(35, 47, 74)"/><polygon points="235,46 51.5,63.7 25.9,53.9" fill="rgb(39, 52, 82)"/><polygon points="235,46 25.9,53.9 20.7,43.3" fill="rgb(42, 57, 89)"/><polygon points="235,46 20.7,43.3 36.5,32.9" fill="rgb(45, 60, 95)"/><polygon points="235,46 36.5,32.9 71.7,23.9" fill="rgb(47, 63, 98)"/><polygon points="235,46 71.7,23.9 122.9,17.0" fill="rgb(47, 63, 99)"/><polygon points="235,46 122.9,17.0 185.1,12.9" fill="rgb(47, 63, 98)"/><polygon points="235,46 185.1,12.9 252.2,12.1" fill="rgb(45, 60, 94)"/><polygon points="235,46 252.2,12.1 317.6,14.6" fill="rgb(42, 56, 88)"/><polygon points="235,46 317.6,14.6 374.9,20.2" fill="rgb(38, 51, 81)"/><polygon points="235,46 374.9,20.2 418.5,28.3" fill="rgb(34, 46, 73)"/><polygon points="235,46 418.5,28.3 444.1,38.1" fill="rgb(30, 41, 65)"/><polygon points="235,46 444.1,38.1 449.3,48.7" fill="rgb(27, 36, 58)"/></g>
+            <polyline class="socle-bord" points="449.3,48.7 433.5,59.1 398.3,68.1 347.1,75.0 284.9,79.1 217.8,79.9 152.4,77.4 95.1,71.8 51.5,63.7 25.9,53.9 20.7,43.3 36.5,32.9 71.7,23.9 122.9,17.0 185.1,12.9 252.2,12.1 317.6,14.6 374.9,20.2 418.5,28.3 444.1,38.1 449.3,48.7" fill="none"/>
             <!-- ombre de contact sous les pieds -->
-            <ellipse cx="178" cy="50" rx="62" ry="11" fill="rgba(0,0,0,0.8)" filter="url(#flou-ombre)"/>
-            <ellipse cx="178" cy="50" rx="96" ry="18" fill="rgba(0,0,0,0.35)" filter="url(#flou-socle)"/>
+            <ellipse cx="233" cy="50" rx="62" ry="11" fill="rgba(0,0,0,0.8)" filter="url(#flou-ombre)"/>
+            <ellipse cx="233" cy="50" rx="96" ry="18" fill="rgba(0,0,0,0.35)" filter="url(#flou-socle)"/>
           </svg>
           <span class="ombre-pied ombre-pied--gauche" aria-hidden="true"></span>
           <span class="ombre-pied ombre-pied--droite" aria-hidden="true"></span>
@@ -129,7 +140,7 @@
           <span data-icone="courriel"></span>
           <div>
             <h2 id="titre-contact">Contact</h2>
-            <p>Retrouvez-moi sur les réseaux.</p>
+            <p>Pour me joindre.</p>
           </div>
         </div>
         <ul class="liste-contact" id="liste-contact"></ul>

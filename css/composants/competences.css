@@ -7,7 +7,7 @@
 #competences .entete-section { max-width: 860px; margin-inline: auto; }
 
 .competence {
-  display: grid; grid-template-columns: 1fr auto; gap: 0.5rem 1rem; align-items: end;
+  display: grid; grid-template-columns: 1fr; gap: 0.6rem;
   padding: 1rem 1.2rem;
   border: 1px solid var(--bordure); border-radius: var(--rayon);
   background: var(--surface);
@@ -15,7 +15,6 @@
 .competence-texte { display: flex; flex-direction: column; }
 .competence-nom { font-size: var(--taille-m); }
 .competence-domaine { font-size: var(--taille-xs); color: var(--texte-doux); }
-.competence-pourcent { font-size: var(--taille-s); color: var(--bleu); font-variant-numeric: tabular-nums; }
 
 .competence-barre {
   grid-column: 1 / -1;
@@ -23,13 +22,22 @@
   background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
 }
-/* la barre est remplie selon le niveau (--niveau, défini en JS) */
+/* la barre se remplit jusqu'au niveau (--niveau, défini en JS)
+   quand la liste reçoit la classe .remplie */
 .competence-barre span {
-  display: block; height: 100%; width: var(--niveau);
+  display: block; height: 100%; width: 0;
   border-radius: inherit;
   background: linear-gradient(90deg, #1f5fc4, var(--bleu), #8cc0ff);
   box-shadow: 0 0 12px var(--bleu-lueur);
+  transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.liste-competences.remplie .competence-barre span { width: var(--niveau); }
+.liste-competences.remplie .competence:nth-child(2) span { transition-delay: 0.08s; }
+.liste-competences.remplie .competence:nth-child(3) span { transition-delay: 0.16s; }
+.liste-competences.remplie .competence:nth-child(4) span { transition-delay: 0.24s; }
+.liste-competences.remplie .competence:nth-child(5) span { transition-delay: 0.32s; }
+.liste-competences.remplie .competence:nth-child(6) span { transition-delay: 0.4s; }
+.liste-competences.remplie .competence:nth-child(7) span { transition-delay: 0.48s; }
 
 @media (max-width: 700px) {
   .liste-competences { grid-template-columns: 1fr; }

@@ -42,28 +42,12 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && hero.classList.contains("ouvert")) { ouvrirProfil(false); boutonProfil.focus(); }
 });
 
-/* 4. Contact : liste des réseaux ; Discord copie le pseudo */
+/* 4. Contact : Gmail, GitHub et téléphone */
 document.getElementById("liste-contact").innerHTML = CONTACTS.map((c) => {
   const contenu = `${icone(c.icone)}<span>${c.reseau}</span><span class="valeur">${c.valeur}</span>${icone("chevron")}`;
-  if (c.copier) {
-    return `<li><button class="lien-contact" type="button" data-copier="${c.valeur}" aria-label="Copier le pseudo ${c.reseau} ${c.valeur}">${contenu}</button></li>`;
-  }
   const externe = c.url.startsWith("http") ? 'target="_blank" rel="noopener"' : "";
   return `<li><a class="lien-contact" href="${c.url}" ${externe}>${contenu}</a></li>`;
 }).join("");
-
-document.querySelectorAll("[data-copier]").forEach((bouton) => {
-  bouton.addEventListener("click", async () => {
-    const valeur = bouton.querySelector(".valeur");
-    try {
-      await navigator.clipboard.writeText(bouton.dataset.copier);
-      valeur.textContent = "Pseudo copié !";
-    } catch (e) {
-      valeur.textContent = bouton.dataset.copier;
-    }
-    setTimeout(() => (valeur.textContent = bouton.dataset.copier), 1800);
-  });
-});
 
 /* 5. Projets : chargés depuis data/projects.json
    (fetch a besoin de Live Server : il ne marche pas en double-cliquant sur index.html) */
@@ -137,7 +121,7 @@ const scenePSP = document.getElementById("psp-scene");
 const aidePSP = document.querySelector("#psp-aide span:last-child");
 if (window.creerPSP3D) {
   creerPSP3D(scenePSP, {
-    video: "assets/videos/Demo_reel.mov",
+    video: "assets/videos/demo-reel.mov",
     surChangement: (agrandie) => {
       aidePSP.textContent = agrandie ? "Clique à nouveau ou Échap pour revenir" : "Clique sur la PSP pour regarder";
       if (agrandie) setTimeout(() => scenePSP.scrollIntoView({ behavior: "smooth", block: "center" }), 350);
@@ -145,20 +129,23 @@ if (window.creerPSP3D) {
   });
 }
 
-/* 7. Compétences : une barre par logiciel */
-document.getElementById("liste-competences").innerHTML = COMPETENCES.map(
+/* 7. Compétences : une barre par logiciel, qui se remplit à l'arrivée dans la section */
+const listeCompetences = document.getElementById("liste-competences");
+listeCompetences.innerHTML = COMPETENCES.map(
   (c) => `
   <li class="competence">
     <div class="competence-texte">
       <span class="competence-nom">${c.logiciel}</span>
       <span class="competence-domaine">${c.domaine}</span>
     </div>
-    <span class="competence-pourcent">${c.niveau} %</span>
     <div class="competence-barre" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${c.niveau}" aria-label="${c.logiciel}">
       <span style="--niveau: ${c.niveau}%"></span>
     </div>
   </li>`
 ).join("");
+new IntersectionObserver((entrees, obs) => {
+  if (entrees[0].isIntersecting) { listeCompetences.classList.add("remplie"); obs.disconnect(); }
+}, { threshold: 0.3 }).observe(listeCompetences);
 
 /* 8. Trois pages : Accueil (fixe), Contenu (défilement), Contact (fixe)
    Le menu garde les 5 onglets ; Projets, Demo reel et Compétences

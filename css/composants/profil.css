@@ -1,6 +1,6 @@
 /* Carte profil de l'accueil (s'ouvre en grand au clic) */
 .profil {
-  width: min(400px, 90vw);
+  width: min(clamp(420px, 32vw, 620px), 90vw);
   border: 1px solid var(--bordure);
   border-radius: 14px;
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
@@ -9,27 +9,27 @@
   overflow: hidden;
   transition: width 0.6s cubic-bezier(0.3, 0.7, 0.2, 1), box-shadow var(--transition), border-color var(--transition);
 }
-.hero.ouvert .profil { width: min(600px, 90vw); border-color: var(--bleu); box-shadow: var(--lueur); }
+.hero.ouvert .profil { width: min(clamp(600px, 46vw, 860px), 90vw); border-color: var(--bleu); box-shadow: var(--lueur); }
 .profil:has(.profil-carte:hover), .profil:has(.profil-carte:focus-visible) { border-color: var(--bleu); box-shadow: var(--lueur); }
 
 .profil-carte {
   width: 100%;
-  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem;
-  padding: 0.9rem 1rem;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.25rem;
+  padding: 1.1rem 1.3rem;
   text-align: left;
 }
 .profil-carte:focus-visible { outline: none; }
 .profil-avatar {
-  width: 64px; height: 64px; object-fit: cover;
-  border-radius: 8px; border: 1px solid var(--bordure);
+  width: clamp(76px, 6vw, 112px); height: clamp(76px, 6vw, 112px); object-fit: cover;
+  border-radius: 10px; border: 1px solid var(--bordure);
   transition: width 0.6s ease, height 0.6s ease;
 }
-.hero.ouvert .profil-avatar { width: 88px; height: 88px; }
+.hero.ouvert .profil-avatar { width: clamp(96px, 7.5vw, 136px); height: clamp(96px, 7.5vw, 136px); }
 .profil-textes { display: flex; flex-direction: column; line-height: 1.3; }
-.profil-nom { font-size: 1.15rem; }
-.profil-sous { color: #c6ccd8; font-size: var(--taille-s); }
-.profil-tags { color: var(--texte-doux); font-size: var(--taille-xs); }
-.profil-chevron { width: 1.2rem; height: 1.2rem; color: var(--texte-doux); transition: transform 0.4s ease; }
+.profil-nom { font-size: 1.45rem; }
+.profil-sous { color: #c6ccd8; font-size: 1.05rem; }
+.profil-tags { color: var(--texte-doux); font-size: 0.9rem; }
+.profil-chevron { width: 1.6rem; height: 1.6rem; color: var(--texte-doux); transition: transform 0.4s ease; }
 .hero.ouvert .profil-chevron { transform: rotate(90deg); color: var(--bleu); }
 
 /* Détails : s'ouvrent en hauteur */
@@ -38,7 +38,7 @@
   transition: grid-template-rows 0.6s cubic-bezier(0.3, 0.7, 0.2, 1);
 }
 .hero.ouvert .profil-details { grid-template-rows: 1fr; }
-.profil-details-interne { overflow: hidden; padding-inline: 1.2rem; }
+.profil-details-interne { overflow: hidden; padding-inline: 1.5rem; }
 .profil-details-interne > :first-child { margin-top: 0.4rem; }
 .profil-details-interne > :last-child { margin-bottom: 1.3rem; }
 

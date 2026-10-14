@@ -17,8 +17,9 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
   align-items: center;
   column-gap: 0;
 }
-.hero-gauche { display: grid; justify-items: center; gap: var(--esp-2); }
+.hero-gauche { display: grid; justify-items: center; gap: var(--esp-2); animation: entrer 0.8s ease both; }
 .hero-aide { justify-content: center; margin: 0; }
+.hero-aide .icone { width: 1.5em; height: 1.5em; }
 
 /* Petit texte d'aide avec icône (accueil, projets) */
 .aide-touches { display: flex; justify-content: flex-end; gap: var(--esp-1); align-items: center; color: var(--texte-doux); font-size: var(--taille-xs); margin-top: var(--esp-2); }
@@ -40,10 +41,11 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
 .hero-scene {
   position: relative;
   justify-self: center;
-  height: min(74vh, 660px);
+  height: min(84vh, calc(100dvh - var(--hauteur-nav) - 4.5rem), 860px);
   aspect-ratio: 420 / 680; /* proportions fixes : les pieds restent calés sur le socle */
   margin-left: -2rem; /* rapproche le personnage de la carte */
   transition: transform 0.6s cubic-bezier(0.3, 0.7, 0.2, 1);
+  animation: entrer 0.8s 0.15s ease both;
 }
 /* Carte ouverte : le personnage se décale (la carte s'élargit et le pousse) */
 .hero.ouvert .hero-scene { transform: scale(0.96); }
@@ -62,9 +64,18 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
 }
 .ombre-pied--gauche { left: 36.5%; bottom: 11.4%; width: 22%; }
 .ombre-pied--droite { left: 68.5%; bottom: 9.3%; width: 17%; }
-.socle-svg { position: absolute; left: 50%; bottom: 0; width: 88%; transform: translateX(-50%); overflow: visible; }
-.socle-lueur { fill: rgba(58, 141, 255, 0.5); }
-.socle-bord { stroke: #8cc0ff; stroke-width: 1.4; filter: drop-shadow(0 0 4px #3a8dff); }
+.socle-svg { position: absolute; left: 50%; bottom: 0; width: 114.9%; transform: translateX(-50%); overflow: visible; }
+/* Mot PORTFOLIO gravé sur la tranche du socle */
+.socle-texte {
+  font-family: var(--police);
+  font-size: 27px; font-weight: 800; letter-spacing: 5px;
+  fill: #f2f6ff;
+  filter: drop-shadow(0 0 2px rgba(58, 141, 255, 0.5));
+}
+.socle-lueur { fill: rgba(58, 141, 255, 0.14); animation: pulser 4s ease-in-out infinite; }
+@keyframes pulser { 50% { fill: rgba(58, 141, 255, 0.22); } }
+@keyframes entrer { from { opacity: 0; transform: translateY(24px); } }
+.socle-bord { stroke: #8cc0ff; stroke-width: 1.2; filter: drop-shadow(0 0 2px rgba(58, 141, 255, 0.6)); }
 
 /* ----- Projets : une rangée par catégorie, centrée ----- */
 .section-projets { max-width: 980px; margin-inline: auto; }
@@ -115,7 +126,7 @@ main { width: min(100% - 2 * var(--esp-3), var(--largeur-max)); margin-inline: a
 
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; justify-items: center; padding-block: var(--esp-3); height: auto; }
-  .hero-scene { grid-row: 1; height: min(58vh, 500px); margin-left: 0; }
+  .hero-scene { grid-row: 1; height: min(62vh, 540px); margin-left: 0; }
   .hero.ouvert .hero-scene { transform: none; }
   .lien-contact { grid-template-columns: auto 5.5rem 1fr auto; }
   .rangee { grid-template-columns: 1fr; }

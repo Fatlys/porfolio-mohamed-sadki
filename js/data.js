@@ -5,6 +5,7 @@
    ========================================================= */
 
 const ICONES = {
+  telephone: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"14\" y=\"5\" width=\"20\" height=\"38\" rx=\"4\"/><path d=\"M21 37h6\"/></svg>",
   trophee: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 7h18v10a9 9 0 0 1-18 0z\"/><path d=\"M15 10H8v3a7 7 0 0 0 7 7M33 10h7v3a7 7 0 0 1-7 7\"/><path d=\"M24 26v7M17 41h14M19 41v-5h10v5\"/></svg>",
   competences: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 13h32M8 24h32M8 35h32\"/><circle cx=\"30\" cy=\"13\" r=\"3.5\" fill=\"currentColor\"/><circle cx=\"18\" cy=\"24\" r=\"3.5\" fill=\"currentColor\"/><circle cx=\"34\" cy=\"35\" r=\"3.5\" fill=\"currentColor\"/></svg>",
   lecture: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"5\" y=\"10\" width=\"38\" height=\"26\" rx=\"3\"/><path d=\"M21 17v12l10-6z\"/><path d=\"M16 41h16\"/></svg>",
@@ -37,7 +38,7 @@ const PROFIL = {
   photo: "assets/images/perso-low-poly.png",
   avatar: "assets/images/moi.png",
   tags: "Design · Vidéo · 3D",
-  description: "Étudiant en multimédia, je tourne et monte des vidéos, je fais du design graphique et je crée des jeux vidéo et des scènes 3D. Je cherche un stage pour évoluer vers un poste polyvalent en montage vidéo et design graphique.",
+  description: "Étudiant en multimédia, je monte des vidéos, je fais du design graphique et je crée des jeux vidéo. Je cherche un stage pour évoluer vers un poste polyvalent en montage vidéo et design graphique.",
   infos: [
     { titre: "Spécialités", valeur: "Montage vidéo, design graphique, jeux vidéo et 3D" },
     { titre: "Logiciels", valeur: "After Effects, Premiere Pro, DaVinci Resolve, Photoshop, Figma, Maya, Unity" },
@@ -45,13 +46,11 @@ const PROFIL = {
   ],
 };
 
-/* Contacts (vérifie tes liens et ton pseudo Discord) */
+/* Contacts */
 const CONTACTS = [
-  { reseau: "Gmail", valeur: "mohamedali.sadki@gmail.com", url: "mailto:mohamedali.sadki@gmail.com", icone: "courriel" },
-  { reseau: "Instagram", valeur: "@ali.sadki", url: "https://www.instagram.com/ali.sadki", icone: "lien" },
-  { reseau: "GitHub", valeur: "/ali-sadki", url: "https://github.com/ali-sadki", icone: "lien" },
-  /* Discord : pas de lien public par pseudo, un clic copie le pseudo */
-  { reseau: "Discord", valeur: "ali.sadki", copier: true, icone: "message" },
+  { reseau: "Gmail", valeur: "alisadki.212.212@gmail.com", url: "mailto:alisadki.212.212@gmail.com", icone: "courriel" },
+  { reseau: "GitHub", valeur: "Fatalys", url: "https://github.com/Fatalys", icone: "lien" },
+  { reseau: "Téléphone", valeur: "438 925 7224", url: "tel:+14389257224", icone: "telephone" },
 ];
 
 /* Rangées de la section Projets (l'ordre compte).
