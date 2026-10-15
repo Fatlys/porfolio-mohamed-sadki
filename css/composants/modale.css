@@ -33,4 +33,35 @@
 .modale-contenu h3 { font-size: var(--taille-s); font-weight: 600; color: var(--bleu); margin: var(--esp-3) 0 0.3rem; }
 .modale-contenu p, .modale-contenu li { color: #c6ccd8; font-size: var(--taille-s); }
 .modale-contenu ol { padding-left: 1.2rem; display: grid; gap: 0.3rem; }
+
+/* Processus de création : une petite image sous chaque étape */
+.modale-contenu .processus { gap: var(--esp-3); }
+.processus-image {
+  display: block; width: min(100%, 320px); margin-top: 0.6rem; padding: 0;
+  cursor: zoom-in;
+  border: 1px solid var(--bordure); border-radius: var(--rayon);
+  overflow: hidden; background: #fff;
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.processus-image img { width: 100%; height: auto; }
+.processus-image:hover, .processus-image:focus-visible { border-color: var(--bleu); box-shadow: var(--lueur); outline: none; }
 .modale-contenu .bouton { margin-top: var(--esp-3); }
+
+/* Visionneuse : image du processus en grand, fond flou */
+.visionneuse {
+  max-width: 92vw; max-height: 92vh;
+  margin: auto; padding: 0;
+  background: transparent; border: 0;
+  overflow: visible;
+  cursor: zoom-out;
+}
+.visionneuse::backdrop { background: rgba(0, 2, 8, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.visionneuse[open] { animation: apparaitre 0.25s ease; }
+.visionneuse-image {
+  display: block;
+  max-width: 92vw; max-height: 88vh;
+  border-radius: var(--rayon);
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.visionneuse .modale-fermer { top: -0.9rem; right: -0.9rem; }
