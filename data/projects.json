@@ -66,7 +66,7 @@
     "id": "vr-tir-arc",
     "titre": "Jeu VR — Tir à l'arc",
     "categorie": "jeux",
-    "image": "assets/images/jeu-vr.png",
+    "image": null,
     "mention": "Académique",
     "cours": "Réalité mixte",
     "equipe": "Équipe",
@@ -82,10 +82,22 @@
     "demande": "Concevoir un jeu de tir à l'arc en réalité virtuelle avec une mécanique de tir fonctionnelle, une interaction VR et plusieurs niveaux de difficulté progressive.",
     "realisation": "J'étais responsable de la mécanique de jeu : attraper l'arc, faire apparaître les flèches, viser, tirer, gérer la physique des projectiles et faire disparaître les flèches à l'impact, sur 3 niveaux de difficulté croissante.",
     "processus": [
-      "Création d'un moodboard pour définir le style visuel et la direction artistique.",
-      "Illustration concrète du jeu dans Photoshop.",
-      "Schéma détaillé du déroulement de l'expérience de jeu.",
-      "Planification du projet et répartition des tâches pour optimiser la productivité et la gestion du temps."
+      {
+        "texte": "Création d'un moodboard pour définir le style visuel et la direction artistique.",
+        "image": "assets/images/Picture1.png"
+      },
+      {
+        "texte": "Illustration concrète du jeu dans Photoshop.",
+        "image": "assets/images/Picture2.png"
+      },
+      {
+        "texte": "Schéma détaillé du déroulement de l'expérience de jeu.",
+        "image": "assets/images/Picture3.png"
+      },
+      {
+        "texte": "Planification du projet et répartition des tâches pour optimiser la productivité et la gestion du temps.",
+        "image": "assets/images/Picture4.png"
+      }
     ],
     "lien": null
   },
