@@ -19,8 +19,19 @@ function ouvrirModale(projet) {
     ? `<h3>Coéquipiers</h3><p>${projet.coequipiers.join(", ")}</p>`
     : "";
 
+  /* Processus : chaque étape a un texte et, si elle en a une, une petite image
+     (clic sur l'image = affichage en grand au milieu de l'écran) */
   const processus = projet.processus
-    ? `<h3>Processus de création</h3><ol>${projet.processus.map((e) => `<li>${e}</li>`).join("")}</ol>`
+    ? `<h3>Processus de création</h3><ol class="processus">${projet.processus
+        .map((etape) => {
+          const image = etape.image
+            ? `<button class="processus-image" type="button" aria-label="Agrandir l'image : ${etape.texte}">
+                 <img src="${etape.image}" alt="Étape : ${etape.texte}" loading="lazy">
+               </button>`
+            : "";
+          return `<li><p>${etape.texte}</p>${image}</li>`;
+        })
+        .join("")}</ol>`
     : "";
 
   const lien = projet.lien
@@ -49,3 +60,31 @@ document.getElementById("modale-fermer").addEventListener("click", () => modale.
 modale.addEventListener("click", (e) => {
   if (e.target === modale) modale.close();
 });
+
+/* Visionneuse : clic sur une image du processus = elle s'affiche en grand
+   au-dessus de la modale, le reste devient flou.
+   Clic n'importe où, bouton X ou Échap pour revenir à la modale. */
+const visionneuse = document.getElementById("visionneuse");
+const visionneuseImage = document.getElementById("visionneuse-image");
+
+/* L'image prend le plus de place possible à l'écran, sans être déformée */
+function ajusterVisionneuse() {
+  const l = visionneuseImage.naturalWidth, h = visionneuseImage.naturalHeight;
+  if (!l || !h) return;
+  const echelle = Math.min((window.innerWidth * 0.9) / l, (window.innerHeight * 0.85) / h);
+  visionneuseImage.style.width = `${Math.round(l * echelle)}px`;
+  visionneuseImage.style.height = `${Math.round(h * echelle)}px`;
+}
+visionneuseImage.addEventListener("load", ajusterVisionneuse);
+window.addEventListener("resize", () => { if (visionneuse.open) ajusterVisionneuse(); });
+
+modaleCorps.addEventListener("click", (e) => {
+  const miniature = e.target.closest(".processus-image");
+  if (!miniature) return;
+  const img = miniature.querySelector("img");
+  visionneuseImage.src = img.src;
+  visionneuseImage.alt = img.alt;
+  visionneuse.showModal();
+  ajusterVisionneuse(); // si l'image est déjà chargée
+});
+visionneuse.addEventListener("click", () => visionneuse.close());
