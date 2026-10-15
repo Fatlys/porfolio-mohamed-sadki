@@ -288,3 +288,35 @@ Résultat : Copilot a enlevé les pourcentages des cartes. Il reste le nom, le d
 
 modifié le code qui crée les cartes dans js/main.js ;
 enlevé le style du pourcentage dans css/composants/competences.css.
+
+## Étape 12 — Images du processus de création (projet VR)
+
+date : 15 octobre
+
+12.1 Ajouter les images des étapes
+
+Prompt : Dans la pop-up de mon projet VR, ajoute une image sous chaque étape du processus de création : moodboard, illustration Photoshop, schéma du déroulement et planification. Les images sont Picture1.png à Picture4.png dans assets/images/. Affiche-les en petit, juste sous le texte de leur étape. Ajoute l’image de chaque étape dans data/projects.json.
+
+Outil : Copilote
+
+Résultat : Copilote a ajouté une petite image (320 px de large maximum) sous chaque étape du processus du jeu VR :
+
+ajouté Picture1.png à Picture4.png dans assets/images/ ;
+modifié data/projects.json pour que chaque étape du processus ait un texte et une image ;
+modifié js/composants/modale.js pour afficher l’image sous chaque étape ;
+ajouté le style des petites images dans css/composants/modale.css.
+
+modifié : Au clic sur une image, elle s’ouvrait dans un nouvel onglet au lieu de rester dans le site.
+
+12.2 Agrandir l’image au clic
+
+Prompt : Quand on clique sur une image du processus, ne l’ouvre pas dans un nouvel onglet. Affiche-la plutôt en grand au milieu de l’écran, par-dessus la pop-up, avec le fond flouté derrière. Elle doit se fermer au clic, avec un bouton X ou avec la touche Échap, et ramener à la pop-up du projet. Garde le style du site.
+
+Outil : Copilote
+
+Résultat : Copilote a remplacé l’ouverture dans un nouvel onglet par une visionneuse. Au clic, l’image s’affiche en grand au milieu de l’écran et le reste devient flou. Un clic, le bouton X ou Échap la referme et ramène à la pop-up :
+
+ajouté la visionneuse (un deuxième <dialog>) dans index.html ;
+ajouté le code d’ouverture et de fermeture dans js/composants/modale.js ;
+ajouté le style de la visionneuse et du fond flou dans css/composants/modale.css.
+
