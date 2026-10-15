@@ -234,5 +234,57 @@ Outil : Copilot
 Résultat : Copilot a réduit la taille du carrousel. Le tout rentre bien dans l’écran. Accepté tel quel.
 
 
+## Étape 10 — Texte « Portfolio » sous le socle
 
+date : 10 octobre
 
+Prompt : Sur la page d’accueil, écris le mot « PORTFOLIO » en grand juste en dessous du petit socle rond du personnage. Le texte doit être blanc, en majuscules, avec des lettres bien espacées et une légère lueur bleue, comme dans le menu de la PS3. Il doit être centré sous le socle et suivre le personnage si la taille de l’écran change. Utilise les couleurs de variables.css.
+
+Outil : Copilot / Claude
+
+Résultat : Claude a ajouté le mot « PORTFOLIO » centré sous le socle, en blanc avec une lueur bleue :
+
+ajouté le texte dans la page d’accueil de index.html ;
+ajouté le style du texte et de la lueur dans css/layout.css.
+
+modifié : J’ai d’abord essayé avec Copilot, mais le texte ne se plaçait pas bien sous le socle. Il se décalait ou passait derrière le personnage. J’ai donc utilisé Claude avec le même prompt, et cette fois ça a bien marché.
+
+## Étape 11 — Dernières modifications
+
+date : 14 octobre
+
+11.1 Agrandir l’accueil
+
+Prompt : Sur la page d’accueil, agrandis le texte « PORTFOLIO » sous le socle, le texte du carrousel et l’image de mon personnage low poly. Garde tout bien centré et assure-toi que la carte profil, le personnage et le carrousel rentrent encore dans l’écran.
+
+Outil : Copilot
+
+Résultat : Copilot a agrandi le texte « PORTFOLIO », le texte du carrousel et le personnage, en gardant tout centré dans l’écran :
+
+modifié la taille du texte et du personnage dans css/layout.css ;
+modifié la taille du texte du carrousel dans css/composants/carrousel.css.
+
+Accepté tel quel.
+
+11.2 Agrandir le menu
+
+Prompt : Agrandis encore le menu en haut : des icônes et un texte plus grands, et le cadre de l’heure plus grand aussi. Garde les onglets collés à gauche.
+
+Outil : Copilot
+
+Résultat : Copilot a agrandi encore les icônes, le texte et l’horloge du menu, en gardant les onglets à gauche :
+
+modifié css/composants/navigation.css.
+
+Accepté tel quel.
+
+11.3 Enlever les pourcentages des compétences
+
+Prompt : Dans la section Compétences, enlève les pourcentages affichés sur les cartes. Garde seulement le nom du logiciel, le domaine et la barre bleue remplie selon le niveau.
+
+Outil : Copilot
+
+Résultat : Copilot a enlevé les pourcentages des cartes. Il reste le nom, le domaine et la barre :
+
+modifié le code qui crée les cartes dans js/main.js ;
+enlevé le style du pourcentage dans css/composants/competences.css.
