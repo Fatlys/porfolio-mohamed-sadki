@@ -158,9 +158,14 @@ html.sans-defilement, html.sans-defilement body { overflow: hidden; }
 .groupe-video-titre .icone { width: 1.4em; height: 1.4em; }
 #videos .rangee-titre, #promo .rangee-titre { padding-left: .8rem; }
 
-/* Miniatures verticales uniquement pour les vidéos promotionnelles. */
+/* Miniatures promotionnelles : trois cartes sur la largeur de deux cartes YouTube. */
+#promo .rangee-cartes {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: calc((200% - var(--esp-2)) / 3);
+}
 #promo .carte-visuel { aspect-ratio: 9 / 16; }
-#promo .carte-visuel img { display: block; object-fit: cover; }
+#promo .carte-visuel img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-#promo .carte-visuel { aspect-ratio: 9 / 16; }
-#promo .carte-visuel img { display: block; object-fit: cover; }
+@media (max-width: 860px) {
+  #promo .rangee-cartes { width: 100%; }
+}

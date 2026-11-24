@@ -49,7 +49,7 @@ const PROFIL = {
 /* Contacts */
 const CONTACTS = [
   { reseau: "Gmail", valeur: "alisadki.212.212@gmail.com", url: "mailto:alisadki.212.212@gmail.com", icone: "courriel" },
-  { reseau: "GitHub", valeur: "Fatlys", url: "https://github.com/Fatlys", icone: "lien" },
+  { reseau: "GitHub", valeur: "Fatlis", url: "https://github.com/Fatlys", icone: "lien" },
   { reseau: "Téléphone", valeur: "438 925 7224", url: "tel:+14389257224", icone: "telephone" },
 ];
 
@@ -58,8 +58,9 @@ const CONTACTS = [
 const CATEGORIES = [
   { id: "videos", cle: "video", titre: "YouTubeurs / Streamers", icone: "film" },
   { id: "promo", cle: "promo", titre: "Vidéos promotionnelles (2023)", icone: "film" },
-  { id: "jeux", cle: "jeux", titre: "Jeux vidéo", icone: "manette" },
+  { id: "projets-video", cle: "projet-video", titre: "Projets vidéo", icone: "film" },
   { id: "design", cle: "design", titre: "Design web", icone: "design" },
+  { id: "jeux", cle: "jeux", titre: "Jeux vidéo", icone: "manette" },
 ];
 
 /* Compétences : niveau de maîtrise en pourcentage */

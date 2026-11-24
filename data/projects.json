@@ -62,6 +62,21 @@
     "lien": null
   },
   {
+    "id": "projet-video",
+    "titre": "Projet vidéo macro",
+    "categorie": "projet-video",
+    "image": "assets/images/projects-video.jpg",
+    "video": "assets/videos/Projects-video.mp4",
+    "coequipiers": [
+      "Jayden Ferdinand",
+      "Marc"
+    ],
+    "role": "Montage vidéo et direction artistique",
+    "logiciels": [],
+    "resume": "Projet vidéo macro réalisé en équipe, explorant le thème de l’addiction à travers une approche visuelle et artistique. J’ai travaillé sur la direction artistique et participé au montage vidéo, une tâche répartie entre les membres de l’équipe.",
+    "lien": null
+  },
+  {
     "id": "promo-1",
     "titre": "Promotion d’un combo",
     "categorie": "promo",
