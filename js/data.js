@@ -49,7 +49,7 @@ const PROFIL = {
 /* Contacts */
 const CONTACTS = [
   { reseau: "Gmail", valeur: "alisadki.212.212@gmail.com", url: "mailto:alisadki.212.212@gmail.com", icone: "courriel" },
-  { reseau: "GitHub", valeur: "Fatlys", url: "https://github.com/Fatalys", icone: "lien" },
+  { reseau: "GitHub", valeur: "Fatlys", url: "https://github.com/Fatlys", icone: "lien" },
   { reseau: "Téléphone", valeur: "438 925 7224", url: "tel:+14389257224", icone: "telephone" },
 ];
 
