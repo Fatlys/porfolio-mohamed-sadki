@@ -76,6 +76,7 @@ function afficherProjets(projets) {
   projetsCharges = projets;
   const conteneurRangees = document.getElementById("rangees-projets");
 
+  conteneurRangees.innerHTML = `<h3 class="groupe-video-titre">${icone("film")} Montage vidéo</h3>`;
   CATEGORIES.forEach((categorie) => {
     const projetsCategorie = projets.filter((p) => p.categorie === categorie.cle);
 

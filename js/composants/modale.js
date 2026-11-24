@@ -39,15 +39,15 @@ function ouvrirModale(projet) {
     : "";
 
   modaleCorps.innerHTML = `
-    <div class="modale-visuel">${creerVisuelProjet(projet)}</div>
+    <div class="modale-visuel${projet.categorie === "promo" ? " modale-visuel--promo" : ""}">${projet.video ? `<video controls playsinline preload="metadata" aria-label="${projet.titre}" src="${projet.video}">Votre navigateur ne prend pas en charge la vidéo.</video>` : creerVisuelProjet(projet)}</div>
     <div class="modale-contenu">
       <h2 id="modale-titre">${projet.titre}</h2>
       <ul class="modale-etiquettes">${etiquettes.map((e) => `<li>${e}</li>`).join("")}</ul>
       <p>${projet.resume}</p>
       <h3>Mon rôle</h3><p>${projet.role}</p>
       ${coequipiers}
-      <h3>Ce qui était demandé</h3><p>${projet.demande}</p>
-      <h3>Ce que j'ai fait</h3><p>${projet.realisation}</p>
+      ${projet.demande ? `<h3>Ce qui était demandé</h3><p>${projet.demande}</p>` : ""}
+      ${projet.realisation ? `<h3>Ce que j’ai fait</h3><p>${projet.realisation}</p>` : ""}
       ${processus}
       ${lien}
     </div>`;
@@ -88,3 +88,8 @@ modaleCorps.addEventListener("click", (e) => {
   ajusterVisionneuse(); // si l'image est déjà chargée
 });
 visionneuse.addEventListener("click", () => visionneuse.close());
+
+// Arrêter la lecture à la fermeture, y compris avec Échap.
+modale.addEventListener("close", () => {
+  modaleCorps.querySelectorAll("video").forEach(video => video.pause());
+});

@@ -49,14 +49,15 @@ const PROFIL = {
 /* Contacts */
 const CONTACTS = [
   { reseau: "Gmail", valeur: "alisadki.212.212@gmail.com", url: "mailto:alisadki.212.212@gmail.com", icone: "courriel" },
-  { reseau: "GitHub", valeur: "Fatalys", url: "https://github.com/Fatalys", icone: "lien" },
+  { reseau: "GitHub", valeur: "Fatlys", url: "https://github.com/Fatalys", icone: "lien" },
   { reseau: "Téléphone", valeur: "438 925 7224", url: "tel:+14389257224", icone: "telephone" },
 ];
 
 /* Rangées de la section Projets (l'ordre compte).
    "cle" correspond à la "categorie" des projets dans data/projects.json */
 const CATEGORIES = [
-  { id: "videos", cle: "video", titre: "Montage vidéo", icone: "film" },
+  { id: "videos", cle: "video", titre: "YouTubeurs / Streamers", icone: "film" },
+  { id: "promo", cle: "promo", titre: "Vidéos promotionnelles (2023)", icone: "film" },
   { id: "jeux", cle: "jeux", titre: "Jeux vidéo", icone: "manette" },
   { id: "design", cle: "design", titre: "Design web", icone: "design" },
 ];

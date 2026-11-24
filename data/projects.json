@@ -62,6 +62,45 @@
     "lien": null
   },
   {
+    "id": "promo-1",
+    "titre": "Promotion d’un combo",
+    "categorie": "promo",
+    "image": "assets/images/promo1.jpg",
+    "video": "assets/videos/promo1.mp4",
+    "mention": "2023",
+    "coequipiers": [],
+    "role": "Montage vidéo",
+    "logiciels": [],
+    "resume": "Montage vidéo professionnel réalisé en 2023 pour le restaurant Caronne. Mise en valeur d’un combo composé de pain libanais, de brochettes de viande et de frites.",
+    "lien": null
+  },
+  {
+    "id": "promo-2",
+    "titre": "Présentation du restaurant",
+    "categorie": "promo",
+    "image": "assets/images/promo2.jpg",
+    "video": "assets/videos/promo2.mp4",
+    "mention": "2023",
+    "coequipiers": [],
+    "role": "Montage vidéo",
+    "logiciels": [],
+    "resume": "Montage vidéo professionnel réalisé en 2023 pour le restaurant Caronne. Mise en valeur du décor et de l’ambiance intérieure du restaurant.",
+    "lien": null
+  },
+  {
+    "id": "promo-3",
+    "titre": "Préparation des brochettes",
+    "categorie": "promo",
+    "image": "assets/images/promo3.jpg",
+    "video": "assets/videos/promo3.mp4",
+    "mention": "2023",
+    "coequipiers": [],
+    "role": "Montage vidéo",
+    "logiciels": [],
+    "resume": "Montage vidéo professionnel réalisé en 2023 pour le restaurant Caronne. Présentation des étapes de préparation des brochettes de viande.",
+    "lien": null
+  },
+  {
     "id": "vr-tir-arc",
     "titre": "Jeu VR — Tir à l'arc",
     "categorie": "jeux",
@@ -119,6 +158,7 @@
     "lien": {
       "texte": "Voir le site",
       "url": "https://202397469.tim-momo.com/Project/"
-    }
+    },
+    "video": "assets/videos/electro.mp4"
   }
 ]

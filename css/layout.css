@@ -153,3 +153,14 @@ html.sans-defilement, html.sans-defilement body { overflow: hidden; }
 @media (max-width: 860px), (max-height: 560px) {
   .page-fixe { overflow-y: auto; }
 }
+
+.groupe-video-titre { display: flex; align-items: center; gap: .6rem; font-size: var(--taille-l); font-weight: 400; margin: 1.5rem 0 .8rem; }
+.groupe-video-titre .icone { width: 1.4em; height: 1.4em; }
+#videos .rangee-titre, #promo .rangee-titre { padding-left: .8rem; }
+
+/* Miniatures verticales uniquement pour les vidéos promotionnelles. */
+#promo .carte-visuel { aspect-ratio: 9 / 16; }
+#promo .carte-visuel img { display: block; object-fit: cover; }
+
+#promo .carte-visuel { aspect-ratio: 9 / 16; }
+#promo .carte-visuel img { display: block; object-fit: cover; }
